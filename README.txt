@@ -38,5 +38,4 @@ $git clone https://github.com/artsoftecos/MigraineServer.git
 
 ** Documentacion del sitio
 		
-
 ** Cloud:

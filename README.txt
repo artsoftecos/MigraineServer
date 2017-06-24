@@ -20,7 +20,6 @@ Este programa fue realizado con JRE 1.8 en S.O 7 y ____.
 Debe tener instalado Maven
 Debe tener instalado Spring boot.
 
-
 **************** Instrucciones de ejecucion ************************
 ** clone repo desde github.
 $git clone https://github.com/artsoftecos/MigraineServer.git

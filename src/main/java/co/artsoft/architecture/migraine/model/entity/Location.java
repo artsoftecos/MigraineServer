@@ -16,29 +16,23 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table(name = "Alimento")
-public class Food {
+@Table(name = "Localizacion")
+public class Location {
+
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
-	
+		
 	@Column(name = "nombre")
 	private String name;
-	
-	@ManyToMany	
-	@JsonBackReference(value = "Alimento-Episodio")
-	@JoinTable(name = "AlimentoPorEpisodio", 
-		joinColumns = @JoinColumn(name = "idAlimento", referencedColumnName = "id"), 
+		
+	@ManyToMany
+	@JsonBackReference(value = "Localizacion-Episodio")
+	@JoinTable(name = "LocalizacionPorEpisodio", 
+		joinColumns = @JoinColumn(name = "idLocalizacion", referencedColumnName = "id"), 
 		inverseJoinColumns = @JoinColumn(name = "idEpisodio", referencedColumnName = "id"))
 	private Set<Episode> episode = new HashSet<Episode>();
 
-	 @ManyToMany	 
-	 @JsonBackReference(value = "Alimento-Diagnostico")
-	 @JoinTable(name = "AlimentoDiagnostico",
-	 joinColumns = @JoinColumn(name = "idAlimento", referencedColumnName = "id"),
-	 inverseJoinColumns = @JoinColumn(name = "idDiagnostico", referencedColumnName = "id"))
-	 private Set<Diagnostic> diagnostic = new HashSet<Diagnostic>();
-	 
 	public Integer getId() {
 		return id;
 	}
@@ -61,14 +55,5 @@ public class Food {
 
 	public void setEpisode(Set<Episode> episode) {
 		this.episode = episode;
-	}
-		
-	public Set<Diagnostic> getDiagnostic() {
-		return diagnostic;
-	}
-
-	public void setDiagnostic(Set<Diagnostic> diagnostic) {
-		this.diagnostic = diagnostic;
-	}
-
+	}	
 }

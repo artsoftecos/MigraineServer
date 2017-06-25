@@ -1,5 +1,6 @@
 package co.artsoft.architecture.migraine.model.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,14 +14,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "Episodio")
-public class Episode {
+public class Episode  {
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;	
@@ -34,14 +38,39 @@ public class Episode {
 	@Column(name = "patronSuenio")
     private String sleepPattern;
     
-    @ManyToMany(cascade = CascadeType.ALL)
-	@JsonBackReference
+    @ManyToMany(cascade = CascadeType.ALL)    
 	@JoinTable(name = "AlimentoPorEpisodio",
 		joinColumns = @JoinColumn(name = "idEpisodio", referencedColumnName = "id"),
 		inverseJoinColumns = @JoinColumn(name = "idAlimento", referencedColumnName = "id"))
 	private Set<Food> foods = new HashSet<Food>();
+    
+    @ManyToMany(cascade = CascadeType.ALL)   	
+   	@JoinTable(name = "LocalizacionPorEpisodio",
+   		joinColumns = @JoinColumn(name = "idEpisodio", referencedColumnName = "id"),
+   		inverseJoinColumns = @JoinColumn(name = "idLocalizacion", referencedColumnName = "id"))
+   	private Set<Location> locations = new HashSet<Location>();
 
-	public Integer getId() {
+    @ManyToMany(cascade = CascadeType.ALL)   	
+   	@JoinTable(name = "MedicamentoPorEpisodio",
+   		joinColumns = @JoinColumn(name = "idEpisodio", referencedColumnName = "id"),
+   		inverseJoinColumns = @JoinColumn(name = "idMedicamento", referencedColumnName = "id"))
+   	private Set<Medicine> medicines = new HashSet<Medicine>();
+    
+    @ManyToMany(cascade = CascadeType.ALL)   	
+   	@JoinTable(name = "ActividadFisicaPorEpisodio",
+   		joinColumns = @JoinColumn(name = "idEpisodio", referencedColumnName = "id"),
+   		inverseJoinColumns = @JoinColumn(name = "idActividadFisica", referencedColumnName = "id"))
+   	private Set<PhysicalActivity> physicalActivity = new HashSet<PhysicalActivity>();
+    
+    @ManyToOne
+	@JoinColumn (name="idUsuario")
+	@JsonBackReference
+	private User user;
+    
+    @OneToMany(mappedBy = "episode")
+	private Set<Diagnostic> diagnostics = new HashSet<Diagnostic>();
+    
+    public Integer getId() {
 		return id;
 	}
 
@@ -88,26 +117,44 @@ public class Episode {
 	public void setFoods(Set<Food> alimentos) {
 		this.foods = alimentos;
 	}
-    
-    /*@ManyToMany(cascade = CascadeType.ALL)
-   	@JsonBackReference
-   	@JoinTable(name = "migraine_foods",
-   		joinColumns = @JoinColumn(name = "migraine_id", referencedColumnName = "id"),
-   		inverseJoinColumns = @JoinColumn(name = "food_id", referencedColumnName = "id"))
-   	private Set<Location> locations = new HashSet<Location>();
+	
+	public Set<Location> getLocations() {
+		return locations;
+	}
 
-    @ManyToMany(cascade = CascadeType.ALL)
-   	@JsonBackReference
-   	@JoinTable(name = "migraine_meds",
-   		joinColumns = @JoinColumn(name = "migraine_id", referencedColumnName = "id"),
-   		inverseJoinColumns = @JoinColumn(name = "med_id", referencedColumnName = "id"))
-   	private Set<Medicine> medicines = new HashSet<Medicine>();
-    
-    @ManyToMany(cascade = CascadeType.ALL)
-   	@JsonBackReference
-   	@JoinTable(name = "migraine_physical_activities",
-   		joinColumns = @JoinColumn(name = "migraine_id", referencedColumnName = "id"),
-   		inverseJoinColumns = @JoinColumn(name = "physicalActivity_id", referencedColumnName = "id"))
-   	private Set<PhysicalActivity> PhysicalActivity = new HashSet<PhysicalActivity>();
-    */
+	public void setLocations(Set<Location> locations) {
+		this.locations = locations;
+	}
+
+	public Set<Medicine> getMedicines() {
+		return medicines;
+	}
+
+	public void setMedicines(Set<Medicine> medicines) {
+		this.medicines = medicines;
+	}
+
+	public Set<PhysicalActivity> getPhysicalActivity() {
+		return physicalActivity;
+	}
+
+	public void setPhysicalActivity(Set<PhysicalActivity> physicalActivity) {
+		this.physicalActivity = physicalActivity;
+	}
+
+	public Set<Diagnostic> getDiagnostics() {
+		return diagnostics;
+	}
+
+	public void setDiagnostics(Set<Diagnostic> diagnostics) {
+		this.diagnostics = diagnostics;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 }

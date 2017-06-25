@@ -11,16 +11,41 @@ Datos adicionales:
 
 Servicio: http://localhost:8080/episode/register
 Cuerpo Json: (variable data)
-{	        
-    "painLevel" : "2",
-    "sleepPattern" : "poquito",    
-    "foods": [{
-    	"id" : "3" 
-    },
-    {
-    	"id" : "2"
-    }
-    ]
+{
+    "painLevel": 3,
+    "sleepPattern": "poco",
+    "foods": [
+        {
+            "id": 3
+        },
+        {
+            "id": 2
+        }
+    ],
+    "locations": [
+		{
+			"id": 1
+		},
+		{
+			"id": 2
+		}
+	],
+    "medicines": [
+		{
+			"id": 1
+		},
+		{
+			"id": 2
+		}
+	],
+    "physicalActivity": [
+		{
+			"id": 2
+		},
+		{
+			"id": 3
+		}
+	]
 }
 
 Pruebas con postman:

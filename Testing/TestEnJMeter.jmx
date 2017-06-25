@@ -17,7 +17,7 @@
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <stringProp name="LoopController.loops">1</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">10</stringProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
         <stringProp name="ThreadGroup.ramp_time">1</stringProp>
         <longProp name="ThreadGroup.start_time">1498356076000</longProp>
         <longProp name="ThreadGroup.end_time">1498356076000</longProp>
@@ -40,7 +40,7 @@
             <collectionProp name="Arguments.arguments">
               <elementProp name="data" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">{	             &quot;painLevel&quot; : &quot;2&quot;,     &quot;sleepPattern&quot; : &quot;poquito&quot;,         &quot;foods&quot;: [{     	&quot;name&quot; : &quot;carne5&quot;      },     {     	&quot;name&quot; : &quot;carne6&quot;     }     ] }</stringProp>
+                <stringProp name="Argument.value">{     &quot;painLevel&quot;: 3,     &quot;sleepPattern&quot;: &quot;poco&quot;,     &quot;foods&quot;: [         {             &quot;id&quot;: 3         },         {             &quot;id&quot;: 2         }     ],     &quot;locations&quot;: [ 		{ 			&quot;id&quot;: 1 		}, 		{ 			&quot;id&quot;: 2 		} 	],     &quot;medicines&quot;: [ 		{ 			&quot;id&quot;: 1 		}, 		{ 			&quot;id&quot;: 2 		} 	],     &quot;physicalActivity&quot;: [ 		{ 			&quot;id&quot;: 2 		}, 		{ 			&quot;id&quot;: 3 		} 	] }</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 <stringProp name="Argument.name">data</stringProp>

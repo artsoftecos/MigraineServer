@@ -16,3 +16,91 @@ SELECT * FROM (SELECT 'Cerdo') AS tmp
 WHERE NOT EXISTS (
     SELECT nombre FROM dbmigraine.alimento WHERE nombre = 'Cerdo'
 ) LIMIT 1;
+
+INSERT INTO dbmigraine.alimento (nombre)
+SELECT * FROM (SELECT 'Empanada') AS tmp
+WHERE NOT EXISTS (
+    SELECT nombre FROM dbmigraine.alimento WHERE nombre = 'Empanada'
+) LIMIT 1;
+
+INSERT INTO dbmigraine.alimento (nombre)
+SELECT * FROM (SELECT 'Hamburguesa') AS tmp
+WHERE NOT EXISTS (
+    SELECT nombre FROM dbmigraine.alimento WHERE nombre = 'Hamburguesa'
+) LIMIT 1;
+
+---------------- Location -------------------------------------
+INSERT INTO dbmigraine.localizacion (nombre)
+SELECT * FROM (SELECT 'Frontal') AS tmp
+WHERE NOT EXISTS (
+    SELECT nombre FROM dbmigraine.localizacion WHERE nombre = 'Frontal'
+) LIMIT 1;
+
+INSERT INTO dbmigraine.localizacion (nombre)
+SELECT * FROM (SELECT 'Lateral Izquierdo') AS tmp
+WHERE NOT EXISTS (
+    SELECT nombre FROM dbmigraine.localizacion WHERE nombre = 'Lateral Izquierdo'
+) LIMIT 1;
+
+INSERT INTO dbmigraine.localizacion (nombre)
+SELECT * FROM (SELECT 'Lateral Derecho') AS tmp
+WHERE NOT EXISTS (
+    SELECT nombre FROM dbmigraine.localizacion WHERE nombre = 'Lateral Derecho'
+) LIMIT 1;
+
+INSERT INTO dbmigraine.localizacion (nombre)
+SELECT * FROM (SELECT 'Superior') AS tmp
+WHERE NOT EXISTS (
+    SELECT nombre FROM dbmigraine.localizacion WHERE nombre = 'Superior'
+) LIMIT 1;
+
+INSERT INTO dbmigraine.localizacion (nombre)
+SELECT * FROM (SELECT 'Posterior') AS tmp
+WHERE NOT EXISTS (
+    SELECT nombre FROM dbmigraine.localizacion WHERE nombre = 'Posterior'
+) LIMIT 1;
+
+------------------- Medicine -------------------------------------
+INSERT INTO dbmigraine.medicamento (nombre)
+SELECT * FROM (SELECT 'Acetaminofen') AS tmp
+WHERE NOT EXISTS (
+    SELECT nombre FROM dbmigraine.medicamento WHERE nombre = 'Acetaminofen'
+) LIMIT 1;
+
+INSERT INTO dbmigraine.medicamento (nombre)
+SELECT * FROM (SELECT 'Dolex') AS tmp
+WHERE NOT EXISTS (
+    SELECT nombre FROM dbmigraine.medicamento WHERE nombre = 'Dolex'
+) LIMIT 1;
+
+------------------- Physical activity ------------------------------
+INSERT INTO dbmigraine.actividad_fisica (nombre)
+SELECT * FROM (SELECT 'Caminata') AS tmp
+WHERE NOT EXISTS (
+    SELECT nombre FROM dbmigraine.actividad_fisica WHERE nombre = 'Caminata'
+) LIMIT 1;
+
+INSERT INTO dbmigraine.actividad_fisica (nombre)
+SELECT * FROM (SELECT 'Natacion') AS tmp
+WHERE NOT EXISTS (
+    SELECT nombre FROM dbmigraine.actividad_fisica WHERE nombre = 'Natacion'
+) LIMIT 1;
+
+INSERT INTO dbmigraine.actividad_fisica (nombre)
+SELECT * FROM (SELECT 'Ciclismo') AS tmp
+WHERE NOT EXISTS (
+    SELECT nombre FROM dbmigraine.actividad_fisica WHERE nombre = 'Ciclismo'
+) LIMIT 1;
+
+------------------- User type ------------------------------
+INSERT INTO dbmigraine.tipo_usuario (nombre)
+SELECT * FROM (SELECT 'Doctor') AS tmp
+WHERE NOT EXISTS (
+    SELECT nombre FROM dbmigraine.tipo_usuario WHERE nombre = 'Doctor'
+) LIMIT 1;
+
+INSERT INTO dbmigraine.tipo_usuario (nombre)
+SELECT * FROM (SELECT 'Paciente') AS tmp
+WHERE NOT EXISTS (
+    SELECT nombre FROM dbmigraine.tipo_usuario WHERE nombre = 'Paciente'
+) LIMIT 1;

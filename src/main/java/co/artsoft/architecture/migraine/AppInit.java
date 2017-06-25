@@ -2,20 +2,19 @@ package co.artsoft.architecture.migraine;
 
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
-import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 
+@SpringBootApplication
 @RestController
-@EnableAutoConfiguration
-public class RestExample {
+public class AppInit {
 
     @RequestMapping("/")
     String home() {
-        return "Hello World!";
+        return "ArtSoft Rocks!";
     }
 
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(RestExample.class, args);
+        SpringApplication.run(AppInit.class, args);
     }
 
 }

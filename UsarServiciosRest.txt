@@ -1,0 +1,31 @@
+(Para que pueda ser rest de todo el proy agregar springBoot)
+
+1. registrar episodio:
+Se deben enviar 2 campos, los cuales representan el archivo y los datos.
+
+El archivo debe llegar en la variable "file"
+Los datos deben venor en formato Json sobre la variablle "data"
+
+
+Datos adicionales:
+
+Servicio: http://localhost:8080/episode/register
+Cuerpo Json: (variable data)
+{	        
+    "painLevel" : "2",
+    "sleepPattern" : "poquito",
+    "foods": [{
+    	"name" : "carne5" 
+    },
+    {
+    	"name" : "carne6"
+    }
+    ]
+}
+
+Pruebas con postman:
+1. No se requiere ningun Header.
+2. Escoger en Body la opción "form-data"
+3. crear la key file de tipo File y asociar una archivo.
+4. crear la key data de tipo texto y asociar el Json.
+

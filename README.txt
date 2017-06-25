@@ -1,4 +1,4 @@
-/************************************************************/
+﻿/************************************************************/
 Codigo curso: CSOF5204 - 2017.
 Nombre curso: ARQUITECTURA DE SOFTWARE.
 Proyecto Analizador migrañas.
@@ -19,6 +19,12 @@ el codigo fuente se encuentra en el repo: https://github.com/artsoftecos/Migrain
 Este programa fue realizado con JRE 1.8 en S.O 7 y ____.
 Debe tener instalado Maven
 Debe tener instalado Spring boot.
+
+
+****************  Archivo de configuración  ************************
+En el archivo 
+src\main\resources\global.properties
+
 
 **************** Instrucciones de ejecucion ************************
 ** clone repo desde github.

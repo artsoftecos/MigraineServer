@@ -10,6 +10,8 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -29,6 +31,7 @@ import co.artsoft.architecture.migraine.model.entity.Episode;
 import co.artsoft.architecture.migraine.model.viewmodel.EpisodeViewModel;
 import co.artsoft.architecture.migraine.model.viewmodel.FoodViewModel;
 
+@EnableAsync
 @RestController
 @RequestMapping(path = "/episode")
 public class EpisodeController {
@@ -38,6 +41,7 @@ public class EpisodeController {
 	@Autowired
 	private EpisodeService episodeService;
 	
+	@Async
 	@RequestMapping(value="/register",method = RequestMethod.POST)
 	public ResponseEntity<?> addEpisode(@RequestPart("data") String data, 
 			@RequestPart("audioFile") MultipartFile file) throws JsonParseException, JsonMappingException, IOException {

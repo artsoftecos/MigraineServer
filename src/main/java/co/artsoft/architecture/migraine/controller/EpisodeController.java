@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,7 +32,6 @@ import co.artsoft.architecture.migraine.model.entity.Episode;
 import co.artsoft.architecture.migraine.model.viewmodel.EpisodeViewModel;
 import co.artsoft.architecture.migraine.model.viewmodel.FoodViewModel;
 
-@EnableAsync
 @RestController
 @RequestMapping(path = "/episode")
 public class EpisodeController {
@@ -40,20 +40,20 @@ public class EpisodeController {
 	private FileService fileService;
 	@Autowired
 	private EpisodeService episodeService;
+	AtomicInteger count = new AtomicInteger();
 	
-	@Async
 	@RequestMapping(value="/register",method = RequestMethod.POST)
 	public ResponseEntity<?> addEpisode(@RequestPart("data") String data, 
 			@RequestPart("audioFile") MultipartFile file) throws JsonParseException, JsonMappingException, IOException {
 		
 		 EpisodeViewModel episode = new ObjectMapper().readValue(data, EpisodeViewModel.class);
-		 
+		 		 
 		 try {
 			 if (!file.isEmpty()) {
 				 episode.setUrlAudioFile(fileService.storageFile(file));
 			 }
 		 } catch (IOException e) {
-			 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+			 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e);
 		}	 
 		 		 
 		 return ResponseEntity.ok(episodeService.saveRepository(episode));

@@ -20,6 +20,9 @@ public class AppInit implements CommandLineRunner {
     }
 
     public static void main(String[] args) throws Exception {
+    	//System.setProperty("server.tomcat.accept-count","100");
+    	System.setProperty("server.tomcat.max-threads","300");
+		System.setProperty("server.connection-timeout","60000");
         SpringApplication.run(AppInit.class, args);
     }
     

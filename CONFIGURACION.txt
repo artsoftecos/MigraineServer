@@ -1,0 +1,19 @@
+Objetivo: En este archivo se encapsulan la informacion para configurar diferentes cosas del proyecto.
+
+1. Datos iniciales en la base de datos:
+
+En la carpeta resources, esta el archivo "data.sql", en el cual se pueden colocar los datos
+iniciales de la base de datos, por medio de inserts de SQL.
+
+2. Pool de conexiones de base de datos:
+
+En el archivo application.properties en resources se pueden configurar.
+
+3. Hilos de peticiones
+
+En la clase AppInit se configuran los maximos hilos que se deseen manejar usando Tomcat.
+
+4. Ruta de audios.
+
+En la carpeta resources, esta el archivo global.properties en el cual se configura la ruta 
+de la carpeta para dejar los audios.

@@ -13,12 +13,12 @@ Servicio: http://localhost:8080/episode/register
 Cuerpo Json: (variable data)
 {	        
     "painLevel" : "2",
-    "sleepPattern" : "poquito",
+    "sleepPattern" : "poquito",    
     "foods": [{
-    	"name" : "carne5" 
+    	"id" : "3" 
     },
     {
-    	"name" : "carne6"
+    	"id" : "2"
     }
     ]
 }

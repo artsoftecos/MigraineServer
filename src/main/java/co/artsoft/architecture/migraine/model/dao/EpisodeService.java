@@ -15,6 +15,8 @@ import co.artsoft.architecture.migraine.model.viewmodel.FoodViewModel;
 public class EpisodeService {
 	@Autowired
 	private EpisodeRepository episodeRepository;
+	@Autowired
+	private FoodRepository foodRepository;
 	
 	public Episode saveRepository(EpisodeViewModel episode) {
 		 Episode migraine = new Episode();
@@ -26,8 +28,7 @@ public class EpisodeService {
 		 Set<Food> foods = new HashSet<Food>();
 		 if (episode.getFoods() != null && episode.getFoods().size() > 0) {
 			for(FoodViewModel f : episode.getFoods()) {
-				Food food = new Food();
-				food.setName(f.getName());
+				Food food = foodRepository.findOne(f.getId());				
 				foods.add(food);			
 			}			
 			migraine.setFoods(foods);			

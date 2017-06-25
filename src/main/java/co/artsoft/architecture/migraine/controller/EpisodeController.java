@@ -22,6 +22,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import co.artsoft.architecture.migraine.GlobalProperties;
 import co.artsoft.architecture.migraine.model.dao.EpisodeRepository;
+import co.artsoft.architecture.migraine.model.dao.EpisodeService;
+import co.artsoft.architecture.migraine.model.dao.FileService;
 import co.artsoft.architecture.migraine.model.entity.Food;
 import co.artsoft.architecture.migraine.model.entity.Episode;
 import co.artsoft.architecture.migraine.model.viewmodel.EpisodeViewModel;
@@ -30,51 +32,26 @@ import co.artsoft.architecture.migraine.model.viewmodel.FoodViewModel;
 @RestController
 @RequestMapping(path = "/episode")
 public class EpisodeController {
+		 
+	@Autowired
+	private FileService fileService;
+	@Autowired
+	private EpisodeService episodeService;
 	
-	@Autowired
-	private EpisodeRepository episodeRepository;
-	private GlobalProperties global;
-	 
-	@Autowired
-	public void setGlobal(GlobalProperties global) {
-	   this.global = global;
-	}
-	 
 	@RequestMapping(value="/register",method = RequestMethod.POST)
 	public ResponseEntity<?> addEpisode(@RequestPart("data") String data, 
 			@RequestPart("audioFile") MultipartFile file) throws JsonParseException, JsonMappingException, IOException {
 		
 		 EpisodeViewModel episode = new ObjectMapper().readValue(data, EpisodeViewModel.class);
 		 
-		 Episode migraine = new Episode();
-		 migraine.setSleepPattern(episode.getSleepPattern());			
-		 migraine.setPainLevel(episode.getPainLevel());
-		 migraine.setDate(new java.sql.Date(System.currentTimeMillis()));	
-			
-		 Set<Food> foods = new HashSet<Food>();
-		 if (episode.getFoods() != null && episode.getFoods().size() > 0) {
-			for(FoodViewModel f : episode.getFoods()) {
-				Food food = new Food();
-				food.setName(f.getName());
-				foods.add(food);			
-			}			
-			migraine.setFoods(foods);			
-		 }					
-			
-		 if (!file.isEmpty()) {
-		        try {
-		        	//TODO: el nombre del archivo debe cambiar, porque se puede subir mas de una vez el archivo
-		        	String audioPath = global.getFolderAudio() + file.getOriginalFilename();
-		            byte[] bytes = file.getBytes();
-		            Path path = Paths.get(audioPath);
-		            Files.write(path, bytes);
-		            migraine.setAudioPath(audioPath);
-
-		        } catch (IOException e) {	
-		        	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);		        	
-		        }
-	     }
+		 try {
+			 if (!file.isEmpty()) {
+				 episode.setUrlAudioFile(fileService.storageFile(file));
+			 }
+		 } catch (IOException e) {
+			 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+		}	 
 		 		 
-		 return ResponseEntity.ok(episodeRepository.save(migraine));
+		 return ResponseEntity.ok(episodeService.saveRepository(episode));
 	}
 }

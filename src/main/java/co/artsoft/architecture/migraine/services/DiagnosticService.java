@@ -1,5 +1,6 @@
 package co.artsoft.architecture.migraine.services;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -92,17 +93,16 @@ public class DiagnosticService {
 		diagnostic.setEpisode(episode);
 	}
 	
-	public Diagnostic getLatestDiagnostic(String documentPatient) {
-		return null;
+	public Diagnostic getLatestDiagnostic(String documentPatient) {		
 		//TODO: get latest diagnostic
-		/*User user = userRepository.findOne(documentPatient);
-		List<Episode> episodes = episodeRepository.findByUser(user);
-		List<Diagnostic> diagnostics = episodes.forEach(x -> {
-			x.getDiagnostics()
-		});
-		if (diagnostics != null && diagnostics.size() > 0){
-			return diagnostics.get(diagnostics.size() - 1);
-		}
-		return null;*/
+		Diagnostic latestDiagnostic = null;
+		User user = userRepository.findOne(documentPatient);
+		List<Episode> episodes = episodeRepository.findByUserAndDiagnosticsNotNullOrderByDateDesc(user);
+		
+		if (episodes != null && episodes.size() > 0) {
+			List<Diagnostic> diagnosticList = new ArrayList<>(episodes.get(episodes.size() - 1).getDiagnostics());						
+			latestDiagnostic = diagnosticList.get(diagnosticList.size() - 1);
+		}		
+		return latestDiagnostic;
 	}
 }

@@ -59,10 +59,10 @@ public class EpisodeController {
 		}	 
 		 		
 		 //TODO: Analizar informacion
-		 //episodeService.saveRepository(episode);
-		 //Diagnostic diagnostic = diagnosticService.getLatestDiagnostic(episode.getUser().getDocumentNumber());
-		 //return ResponseEntity.ok(diagnostic);
-		 return ResponseEntity.ok(episodeService.saveRepository(episode));
+		 episodeService.saveRepository(episode);
+		 Diagnostic diagnostic = diagnosticService.getLatestDiagnostic(episode.getUser().getDocumentNumber());
+		 return ResponseEntity.ok(diagnostic);
+		 //return ResponseEntity.ok(episodeService.saveRepository(episode));
 	}
 	
 	@RequestMapping(value="/patient/{documentNumber}",method = RequestMethod.GET)

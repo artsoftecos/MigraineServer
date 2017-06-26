@@ -35,4 +35,4 @@ src/main/resources/application.properties
 .mp3
 # Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
 !/.mvn/wrapper/maven-wrapper.jar
-audio/.mp3
+audio/*.mp3

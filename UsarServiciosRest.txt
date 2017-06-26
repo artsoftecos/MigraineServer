@@ -48,7 +48,7 @@ Cuerpo Json: (variable data)
 		}
 	],
 	"user" : {
-		"documentNumber" : "1014207335"
+		"documentNumber" : "1014207336"
 	}
 }
 
@@ -61,16 +61,57 @@ Pruebas con postman:
 2. Consultar los episodios de un paciente
 
 Tipo: GET
-Servicio: http://localhost:8080/episode/patient/1014207335
-Servicio: http://localhost:8080/episode/patient?documentNumber=1014207335
+Servicio: http://localhost:8080/episode/patient/1014207336
 
 3. Consultar episodio especifico
 
 Tipo: GET
 Servicio: http://localhost:8080/episode/1
-Servicio: http://localhost:8080/episode?idEpisode=1
 
 4. Descargar archivo migraña
 Tipo: GET
 Servicio: http://localhost:8080/episode/download/2
-Servicio: http://localhost:8080/episode/download?idEpisode=2
+
+5. Registrar un diagnostico
+Tipo: POST
+Servicio: http://localhost:8080/diagnostic/register
+Cuerpo Json:
+{	
+    "episode": {
+		"id" : "2"
+	},
+	"user": {
+		"documentNumber" : "1014207335"
+	},
+    "foods": [
+        {
+            "id": 4
+        },
+        {
+            "id": 5
+        }
+    ],
+    "medicines": [
+		{
+			"id": 1
+		},
+		{
+			"id": 2
+		}
+	],
+    "physicalActivity": [
+		{
+			"id": 1
+		},
+		{
+			"id": 3
+		}
+	]
+}
+
+Pruebas con postman:
+1.1. Headers:
+Content-Type application/json
+Accept  application/json
+
+1.2. Escoger en Body la opción "raw" y tipo JSON

@@ -54,6 +54,7 @@ public class Diagnostic {
 	 private Episode episode;
 	 
 	@ManyToOne
+	@JsonBackReference
 	@JoinColumn (name="idUsuario")
 	private User user;
 	 

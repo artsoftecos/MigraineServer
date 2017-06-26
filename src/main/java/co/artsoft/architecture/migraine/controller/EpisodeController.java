@@ -23,7 +23,9 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import co.artsoft.architecture.migraine.GlobalProperties;
+import co.artsoft.architecture.migraine.model.entity.Diagnostic;
 import co.artsoft.architecture.migraine.model.entity.Episode;
+import co.artsoft.architecture.migraine.services.DiagnosticService;
 import co.artsoft.architecture.migraine.services.EpisodeService;
 import co.artsoft.architecture.migraine.services.FileService;
 
@@ -35,6 +37,8 @@ public class EpisodeController {
 	private FileService fileService;
 	@Autowired
 	private EpisodeService episodeService;
+	@Autowired
+	private DiagnosticService diagnosticService;
 	AtomicLong identifierAudio = new AtomicLong();
 	@Autowired
 	private GlobalProperties global;
@@ -55,6 +59,9 @@ public class EpisodeController {
 		}	 
 		 		
 		 //TODO: Analizar informacion
+		 //episodeService.saveRepository(episode);
+		 //Diagnostic diagnostic = diagnosticService.getLatestDiagnostic(episode.getUser().getDocumentNumber());
+		 //return ResponseEntity.ok(diagnostic);
 		 return ResponseEntity.ok(episodeService.saveRepository(episode));
 	}
 	

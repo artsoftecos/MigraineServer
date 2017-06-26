@@ -104,3 +104,24 @@ SELECT * FROM (SELECT 'Paciente') AS tmp
 WHERE NOT EXISTS (
     SELECT nombre FROM dbmigraine.tipo_usuario WHERE nombre = 'Paciente'
 ) LIMIT 1;
+
+---------------- Usuarios ----------------------------------
+--------Doctor------------
+INSERT INTO dbmigraine.usuario (numero_documento, nombre, id_tipo_usuario)
+SELECT * FROM (SELECT '1014207335', 'Doctor Patch Adams', 1) AS tmp
+WHERE NOT EXISTS (
+    SELECT numero_documento FROM dbmigraine.usuario WHERE numero_documento = '1014207335'
+) LIMIT 1;
+
+INSERT INTO dbmigraine.usuario (numero_documento, nombre, id_tipo_usuario)
+SELECT * FROM (SELECT '1014207334', 'Doctor House', 1) AS tmp
+WHERE NOT EXISTS (
+    SELECT numero_documento FROM dbmigraine.usuario WHERE numero_documento = '1014207334'
+) LIMIT 1;
+
+--------Paciente----------
+INSERT INTO dbmigraine.usuario (numero_documento, nombre, id_tipo_usuario)
+SELECT * FROM (SELECT '1014207336', 'Rebbeca Adler', 2) AS tmp
+WHERE NOT EXISTS (
+    SELECT numero_documento FROM dbmigraine.usuario WHERE numero_documento = '1014207336'
+) LIMIT 1;

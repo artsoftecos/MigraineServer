@@ -1,13 +1,15 @@
 package co.artsoft.architecture.migraine.controller;
 
 import java.io.IOException;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,7 +19,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import co.artsoft.architecture.migraine.model.entity.Episode;
-import co.artsoft.architecture.migraine.model.viewmodel.EpisodeViewModel;
 import co.artsoft.architecture.migraine.services.EpisodeService;
 import co.artsoft.architecture.migraine.services.FileService;
 
@@ -29,7 +30,7 @@ public class EpisodeController {
 	private FileService fileService;
 	@Autowired
 	private EpisodeService episodeService;
-	AtomicInteger count = new AtomicInteger();
+	AtomicLong identifierAudio = new AtomicLong();
 	
 	@RequestMapping(value="/register",method = RequestMethod.POST)
 	public ResponseEntity<?> addEpisode(@RequestPart("data") String data, 
@@ -40,12 +41,26 @@ public class EpisodeController {
 		 		 
 		 try {
 			 if (!file.isEmpty()) {
-				 episode.setAudioPath(fileService.storageFile(file));
+				 episode.setAudioPath(fileService.storageFile(file, identifierAudio.getAndIncrement()));
 			 }
 		 } catch (IOException e) {
 			 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e);
 		}	 
-		 		 
+		 		
+		 //TODO: Analizar informacion
 		 return ResponseEntity.ok(episodeService.saveRepository(episode));
 	}
+	
+	@RequestMapping(value="/patient",method = RequestMethod.GET)
+	public ResponseEntity<?> getEpisodesPatient(@RequestParam("documentNumber") String documentNumber) {
+		List<Episode> episodes = null;	 
+		 try {
+			 episodes = episodeService.getEpisodesPatient(documentNumber);
+			 
+		 } catch (Exception e) {
+			 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e);
+		}	 
+		 		 
+		 return ResponseEntity.ok(episodes);
+	} 
 }

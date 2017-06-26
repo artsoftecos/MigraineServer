@@ -1,6 +1,7 @@
 package co.artsoft.architecture.migraine.services;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +12,13 @@ import co.artsoft.architecture.migraine.model.dao.FoodRepository;
 import co.artsoft.architecture.migraine.model.dao.LocationRepository;
 import co.artsoft.architecture.migraine.model.dao.MedicineRepository;
 import co.artsoft.architecture.migraine.model.dao.PhysicalActivityRepository;
+import co.artsoft.architecture.migraine.model.dao.UserRepository;
 import co.artsoft.architecture.migraine.model.entity.Episode;
 import co.artsoft.architecture.migraine.model.entity.Food;
 import co.artsoft.architecture.migraine.model.entity.Location;
 import co.artsoft.architecture.migraine.model.entity.Medicine;
 import co.artsoft.architecture.migraine.model.entity.PhysicalActivity;
-import co.artsoft.architecture.migraine.model.viewmodel.EpisodeViewModel;
-import co.artsoft.architecture.migraine.model.viewmodel.FoodViewModel;
+import co.artsoft.architecture.migraine.model.entity.User;
 
 @Service
 public class EpisodeService {
@@ -31,31 +32,24 @@ public class EpisodeService {
 	private MedicineRepository medicineRepository;
 	@Autowired
 	private PhysicalActivityRepository physicalActivityRepository;
+	@Autowired
+	private UserRepository userRepository;
 	
-	public Episode saveRepository(Episode episode) {
+	public Episode saveRepository(Episode episode) {	
 		
-		
-		// Episode migraine = new Episode();
-		// migraine.setSleepPattern(episode.getSleepPattern());			
-		// migraine.setPainLevel(episode.getPainLevel());
 		 episode.setDate(new java.sql.Date(System.currentTimeMillis()));
-		 //migraine.setAudioPath(episode.getUrlAudioFile());
-		 /*
-		 Set<Food> foods = new HashSet<Food>();
-		 if (episode.getFoods() != null && episode.getFoods().size() > 0) {
-			for(Food f : episode.getFoods()) {
-				Food food = foodRepository.findOne(f.getId());				
-				foods.add(food);			
-			}			
-			episode.setFoods(foods);			
-		 }*/	
 		 
+		 setPatient(episode);
 		 setFoods(episode);
 		 setLocations(episode);
 		 setMedicine(episode);
 		 setPhysicalActivities(episode);
 		 
 		 return episodeRepository.save(episode);		 
+	}
+	
+	public List<Episode> getEpisodesPatient(String documentNumber) {
+		return episodeRepository.findByUser(userRepository.findOne(documentNumber));		
 	}
 	
 	private void setFoods(Episode episode) {
@@ -100,5 +94,10 @@ public class EpisodeService {
 			}	
 			episode.setPhysicalActivity(physicalActivities);
 		 }
+	}
+	
+	private void setPatient(Episode episode) {
+		User user = userRepository.findOne(episode.getUser().getDocumentNumber());
+		episode.setUser(user);
 	}
 }

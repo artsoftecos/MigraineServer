@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.hibernate.tuple.IdentifierAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,9 +22,9 @@ public class FileService {
 	   this.global = global;
 	}
 	
-	public String storageFile(MultipartFile file) throws IOException {		
+	public String storageFile(MultipartFile file, Long identifierAudio) throws IOException {		
 	        	//TODO: el nombre del archivo debe cambiar, porque se puede subir mas de una vez el archivo
-	        	String audioPath = global.getFolderAudio() + file.getOriginalFilename();
+	        	String audioPath = global.getFolderAudio() + identifierAudio + file.getOriginalFilename();
 	            byte[] bytes = file.getBytes();
 	            Path path = Paths.get(audioPath);
 	            Files.write(path, bytes);

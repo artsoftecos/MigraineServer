@@ -1,6 +1,6 @@
 package co.artsoft.architecture.migraine.model.entity;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,9 +26,9 @@ public class Diagnostic {
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;	
-	@JsonFormat(pattern = "YYYY-MM-dd")
+	@JsonFormat(pattern = "YYYY-MM-dd HH:mm:ss")	
 	@Column(name = "Fecha")
-	private Date date;	
+	private Timestamp date;	
 	
 	 @ManyToMany(cascade = CascadeType.ALL)
 	 @JoinTable(name = "AlimentoDiagnostico",
@@ -74,11 +74,11 @@ public class Diagnostic {
 		this.id = id;
 	}
 
-	public Date getDate() {
+	public Timestamp getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(Timestamp date) {
 		this.date = date;
 	}
 	

@@ -1,6 +1,6 @@
 package co.artsoft.architecture.migraine.model.entity;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,9 +26,9 @@ public class Episode  {
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;	
-	@JsonFormat(pattern = "YYYY-MM-dd")
+	@JsonFormat(pattern = "YYYY-MM-dd HH:mm:ss")
 	@Column(name = "Fecha")
-	private Date date;	
+	private Timestamp date;	
 	@Column(name = "nivelDolor")
 	private int painLevel;
 	@Column(name = "urlAudio")
@@ -76,11 +76,11 @@ public class Episode  {
 		this.id = id;
 	}
 
-	public Date getDate() {
+	public Timestamp  getDate() {
 		return date;
 	}
 
-	public void setDate(Date fecha) {
+	public void setDate(Timestamp fecha) {
 		this.date = fecha;
 	}
 

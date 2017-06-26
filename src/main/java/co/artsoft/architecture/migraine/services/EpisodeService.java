@@ -37,7 +37,7 @@ public class EpisodeService {
 		
 	public Episode saveRepository(Episode episode) {	
 		
-		 episode.setDate(new java.sql.Date(System.currentTimeMillis()));
+		 episode.setDate(new java.sql.Timestamp(System.currentTimeMillis()));
 		 
 		 setPatient(episode);
 		 setFoods(episode);

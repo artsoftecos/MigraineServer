@@ -39,7 +39,7 @@ public class DiagnosticService {
 	
 	public Diagnostic saveRepository(Diagnostic diagnostic) {	
 		
-		 diagnostic.setDate(new java.sql.Date(System.currentTimeMillis()));
+		 diagnostic.setDate(new java.sql.Timestamp(System.currentTimeMillis()));
 		 
 		 setDoctor(diagnostic);	
 		 setEpisode(diagnostic);

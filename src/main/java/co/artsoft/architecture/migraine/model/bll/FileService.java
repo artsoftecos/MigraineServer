@@ -1,4 +1,4 @@
-package co.artsoft.architecture.migraine.services;
+package co.artsoft.architecture.migraine.model.bll;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,13 +14,27 @@ import co.artsoft.architecture.migraine.GlobalProperties;
 @Service
 public class FileService {
 	
+	/**
+	 * global properties of the application.
+	 */
 	private GlobalProperties global;
 	 
+	/**
+	 * Set the global properties file.
+	 * @param global: the global property file.
+	 */
 	@Autowired
 	public void setGlobal(GlobalProperties global) {
 	   this.global = global;
 	}
 	
+	/**
+	 * Storage the audio file.
+	 * @param file: the file to be storaged.
+	 * @param identifierAudio: the number of the audio.
+	 * @return the name of the audio.
+	 * @throws IOException: throws either error handling files.
+	 */
 	public String storageFile(MultipartFile file, Long identifierAudio) throws IOException {
 		String nameAudio = identifierAudio + file.getOriginalFilename();
 		String audioPath = global.getFolderAudio() + nameAudio;

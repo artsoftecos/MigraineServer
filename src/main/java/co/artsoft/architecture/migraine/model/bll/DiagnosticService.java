@@ -1,4 +1,4 @@
-package co.artsoft.architecture.migraine.services;
+package co.artsoft.architecture.migraine.model.bll;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -24,19 +24,47 @@ import co.artsoft.architecture.migraine.model.entity.User;
 @Service
 public class DiagnosticService {
 	
+	/**
+	 * Repository of diagnostic.
+	 */
 	@Autowired
 	private DiagnosticRepository diagnosticRepository;
+	
+	/**
+	 * Repository of food.
+	 */
 	@Autowired
 	private FoodRepository foodRepository;
+	
+	/**
+	 * Repository of medicine.
+	 */
 	@Autowired
 	private MedicineRepository medicineRepository;
+	
+	/**
+	 * Repository of physical activity.
+	 */
 	@Autowired
 	private PhysicalActivityRepository physicalActivityRepository;
+	
+	/**
+	 * Repository of users.
+	 */
 	@Autowired
 	private UserRepository userRepository;
+	
+	/**
+	 * Repository of episode.
+	 */
 	@Autowired
 	private EpisodeRepository episodeRepository;
 	
+	/**
+	 * Save diagnostic.
+	 * @param diagnostic: Entity Diagnostic to be saved.
+	 * @return the saved diagnostic entity.
+	 */
 	public Diagnostic saveRepository(Diagnostic diagnostic) {	
 		
 		 diagnostic.setDate(new java.sql.Timestamp(System.currentTimeMillis()));
@@ -50,6 +78,10 @@ public class DiagnosticService {
 		 return diagnosticRepository.save(diagnostic);		 
 	}
 	
+	/**
+	 * Set Foods to the diagnostic.
+	 * @param diagnostic: The diagnostic to add foods.
+	 */
 	private void setFoods(Diagnostic diagnostic) {
 		Set<Food> foods = new HashSet<Food>();
 		 if (diagnostic.getFoods() != null && diagnostic.getFoods().size() > 0) {
@@ -61,6 +93,10 @@ public class DiagnosticService {
 		 }
 	}
 	
+	/**
+	 * Set Medicines to the diagnostic.
+	 * @param diagnostic: The diagnostic to add medicines.
+	 */
 	private void setMedicine(Diagnostic diagnostic) {
 		Set<Medicine> medicines = new HashSet<Medicine>();
 		 if (diagnostic.getMedicines() != null && diagnostic.getMedicines().size() > 0) {
@@ -72,6 +108,10 @@ public class DiagnosticService {
 		 }
 	}
 	
+	/**
+	 * Set Physical activity to the diagnostic.
+	 * @param diagnostic: The diagnostic to add physical activities.
+	 */
 	private void setPhysicalActivities(Diagnostic diagnostic) {
 		Set<PhysicalActivity> physicalActivities = new HashSet<PhysicalActivity>();
 		 if (diagnostic.getPhysicalActivity() != null && diagnostic.getPhysicalActivity().size() > 0) {
@@ -83,16 +123,29 @@ public class DiagnosticService {
 		 }
 	}
 	
+	/**
+	 * Set the Doctor to the diagnostic.
+	 * @param diagnostic: The diagnostic to add the doctor.
+	 */
 	private void setDoctor(Diagnostic diagnostic) {
 		User user = userRepository.findOne(diagnostic.getUser().getDocumentNumber());
 		diagnostic.setUser(user);
 	}
 	
+	/**
+	 * Set the episode to the diagnostic.
+	 * @param diagnostic: The diagnostic to add the episode.
+	 */
 	private void setEpisode(Diagnostic diagnostic) {
 		Episode episode = episodeRepository.findOne(diagnostic.getEpisode().getId());
 		diagnostic.setEpisode(episode);
 	}
 	
+	/**
+	 * Get the latest diagnostic of patient.
+	 * @param documentPatient: the document number of the patient.
+	 * @return the latest diagnostic, otherwise null.
+	 */
 	public Diagnostic getLatestDiagnostic(String documentPatient) {		
 		//TODO: get latest diagnostic
 		Diagnostic latestDiagnostic = null;

@@ -4,6 +4,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
+/**
+ * Global properties of the application.
+ * @author ArtSoft
+ *
+ */
 @Component
 @PropertySource("classpath:global.properties")
 public class GlobalProperties {

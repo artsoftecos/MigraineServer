@@ -34,7 +34,7 @@ public class EpisodeService {
 	private PhysicalActivityRepository physicalActivityRepository;
 	@Autowired
 	private UserRepository userRepository;
-	
+		
 	public Episode saveRepository(Episode episode) {	
 		
 		 episode.setDate(new java.sql.Date(System.currentTimeMillis()));
@@ -50,6 +50,14 @@ public class EpisodeService {
 	
 	public List<Episode> getEpisodesPatient(String documentNumber) {
 		return episodeRepository.findByUser(userRepository.findOne(documentNumber));		
+	}
+	
+	public Episode getEpisode(int id) {
+		return episodeRepository.findOne(id);
+	}
+	
+	public String getPathAudio(int id){
+		return episodeRepository.findOne(id).getAudioPath();		
 	}
 	
 	private void setFoods(Episode episode) {

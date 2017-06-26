@@ -61,4 +61,16 @@ Pruebas con postman:
 2. Consultar los episodios de un paciente
 
 Tipo: GET
+Servicio: http://localhost:8080/episode/patient/1014207335
 Servicio: http://localhost:8080/episode/patient?documentNumber=1014207335
+
+3. Consultar episodio especifico
+
+Tipo: GET
+Servicio: http://localhost:8080/episode/1
+Servicio: http://localhost:8080/episode?idEpisode=1
+
+4. Descargar archivo migraña
+Tipo: GET
+Servicio: http://localhost:8080/episode/download/2
+Servicio: http://localhost:8080/episode/download?idEpisode=2

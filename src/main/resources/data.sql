@@ -125,3 +125,11 @@ SELECT * FROM (SELECT '1014207336', 'Rebbeca Adler', 2) AS tmp
 WHERE NOT EXISTS (
     SELECT numero_documento FROM dbmigraine.usuario WHERE numero_documento = '1014207336'
 ) LIMIT 1;
+
+
+-------------- Episode -------------------------------------
+INSERT INTO dbmigraine.episodio (url_audio, fecha, nivel_dolor, patron_suenio, id_usuario)
+SELECT * FROM (SELECT '','2017-06-25', 4, '2 horas al día', '1014207336') AS tmp
+WHERE NOT EXISTS (
+    SELECT id_usuario FROM dbmigraine.episodio WHERE id_usuario = '1014207336'
+) LIMIT 1;

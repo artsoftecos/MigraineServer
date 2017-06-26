@@ -96,4 +96,5 @@
 
 
 
+	<packaging>war</packaging>
 </project>

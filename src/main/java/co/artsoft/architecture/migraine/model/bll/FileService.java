@@ -1,9 +1,11 @@
 package co.artsoft.architecture.migraine.model.bll;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,12 +34,19 @@ public class FileService {
 	 * Storage the audio file.
 	 * @param file: the file to be storaged.
 	 * @param identifierAudio: the number of the audio.
+	 * @param
 	 * @return the name of the audio.
 	 * @throws IOException: throws either error handling files.
 	 */
-	public String storageFile(MultipartFile file, Long identifierAudio) throws IOException {
+	public String storageFile(MultipartFile file, Long identifierAudio, HttpServletRequest request) throws IOException {		
+		//String pathAudio = request.getSession().getServletContext().getRealPath("/")+global.getFolderAudio();
+		String pathAudio = global.getFolderAudio();
+		File folder = new File(pathAudio);
+		if (!folder.exists()) {
+			folder.mkdir(); 
+		}
 		String nameAudio = identifierAudio + file.getOriginalFilename();
-		String audioPath = global.getFolderAudio() + nameAudio;
+		String audioPath = pathAudio + nameAudio;
 		byte[] bytes = file.getBytes();
 		Path path = Paths.get(audioPath);
 		Files.write(path, bytes);

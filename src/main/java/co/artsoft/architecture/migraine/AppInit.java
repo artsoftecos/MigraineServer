@@ -9,6 +9,8 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -18,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @SpringBootApplication
 @RestController
-public class AppInit implements CommandLineRunner {
+public class AppInit  extends SpringBootServletInitializer implements CommandLineRunner {
 
 	/**
 	 * Datasource that the application is using.
@@ -56,6 +58,11 @@ public class AppInit implements CommandLineRunner {
 
         System.out.println("DATASOURCE = " + dataSource);
 
+    }
+    
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(AppInit.class);
     }
 
 }

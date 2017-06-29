@@ -1,0 +1,107 @@
+@CopyRight ArtSoft
+
+https://stormpath.com/blog/tutorial-spring-boot-war-files
+https://www.youtube.com/watch?v=VAY20v-ppQM
+
+Objetivo: Vulnerar seguridad del sistema en confidencialidad y integridad.
+- Realizar ataques de man in the middle, para verificar la confidencialidad de los mensajes.
+Para esto se usa ettercap -g, urlsnarf, driftnet y wireshark. (tambn se puede usar mitmproxy).
+- Realizar ataques de man in the middle, para alterar el contenido de los mensajes (integridad):
+https://blog.heckel.xyz/2013/07/01/how-to-use-mitmproxy-to-read-and-modify-https-traffic-of-your-phone/
+http://docs.mitmproxy.org/en/latest/mitmproxy.html
+Para realizar esto se usa mitmproxy 
+
+------------------------------------------------------------------------------------------------------------
+1. Prerequisitos:
+Se deben tener 2 maquinas:
+- Victima: windows 7 Home basic: equipo desde el cual se realizaran las peticiones.
+- Atacante: Kali linux: Equipo desde el cual sera man in the middle.
+
+Para este ejercicio, se tiene otro equipo windows 7 ultimate, en el cual se instalo tomcat y se instalo 
+la aplicacion de caracterizacion migrañas.
+
+Man in the middle: se va a interceptar la comunicacion entre el host y el gateway que envia la petición.
+(quedando en el medio de ambos y gestionando las comunicaciones de ambos, envio y respuesta).
+
+------------------------------------------------------------------------------------------------------------
+2. Acerca de las maquinas
+- test que se vean las maquinas.
+
+IP VM WINDOWS 7:192.168.149.130
+IP linux: 192.168.149.129
+Gateway (puerta de enlace): (ipconfig en windows): 192.168.149.2
+(este gateway es el que se va a enmascarar)
+
+------------------------------------------------------------------------------------------------------------
+3. Testeando seguridad de la aplicacion:
+
+	3.1 Man in the middle, ver tramas.
+
+	3.1.1 Abrir la aplicación ettercap:
+	En Linux Aplicaciones -> husmeando/envenenando -> ettercap
+	-ir a:
+	Sniif -> unified sniff
+	- se escoge eth0
+	Hosts -> scan for hosts  (con esto agrega los host que encuentra)
+	Host -> Host List (se ve la ip 192.168.149.2 (la cual deseamos enmascarar (el gateway)) 
+	tambien se ve la ip de windows (192.168.149.130))
+	- en host list, seleccionar la ip 192.168.149.2 y dar click sobre "Add to target 1"
+	- en host list, seleccionar la ip 192.168.149.130 y dar click sobre "Add to target 2"
+	- En el menu ir a mitm -> arp poisioning -> sniff remote connection (infecte conexiones remotas)
+	- En el menu Start -> star sniffing
+
+	3.1.2 Identificar en windows si se esta siendo atacado:
+	por consola escribir:
+    - arp -a  (saldra la ip de linux y el gateway, ambos con la misma mac)
+	( protocolo de resolución de direcciones (ARP, del inglés Address Resolution Protocol) es un protocolo de comunicaciones de la capa de enlace, 
+	responsable de encontrar la dirección de hardware (Ethernet MAC) que corresponde a una determinada dirección IP.)
+	
+	3.1.3. vamos a capturar las imagenes.
+	Abrir otro terminal en linux
+	- driftnet - i eth0  (captura todas las imagenes)
+	- driftnet -i eth0 -d /root/myimages  (guardar las imagenes)
+
+	3.1.4. ver urls que consulta
+	urlsnarf -i eth0  
+
+	3.1.5. sniffear la red 
+	- abrir wireshark
+	- escoger eth0
+	- En la maquina windows ingresar al sitio:
+	http://192.168.149.1:8080/migraineServer-1.0-SNAPSHOT/episode/1
+	- en la maquina linux se observa la peticion con los datos enviados.
+	(Si se desean filtrar las peticiones escriba "http")
+
+------------------------------------------------------------------------------------------------------------
+4. alterando los mensajes. (alterando integridad)
+	Se va a usar mitmproxy. (se debe configurar el proxy, para indicar por donde deben salir las peticiones (hacia la maquina que ataca)).
+
+	4.1 Configure el proxy en la maquina windows (victima)
+	- en la maquina victima (windows), configure el proxy (puede ser el de Internet explorer 
+	(herramientas -> opciones de internet -> conexiones -> configuracion LAN))
+	para que le apunte a la ip linux (en este caso 192.168.149.129), con el puerto 8080.
+
+	4.2 Iniciar captura
+	- En la maquina linux inicie desde consola mitmproxy:
+	mitmproxy --host
+
+	4.3 interceptar y alterar peticiones hechas en la victima. (victima)
+	- Realice peticiones desde windows..
+	* para ver peticiones en detalle, de click o navegue con las flechas. 
+	* para salir del detalle de la petición, escriba "q"
+	Para alterar las peticiones haga:
+	* Escriba i (se habilita una caja de texto abajo, coloque .* )
+	* Escriba e para editar una parte en especifico. (muestra diferentes lugares, el contenido es "raw body")
+	* se mostrara en vim la posibilidad de cambiar el contenido, modifiquelo, para salir de esc y escriba ":x"
+	* de clic en "a", para dejar pasar un flujo, de "A" para dejar pasar todo el flujo.
+	* utilice este comenado ":q!" para salir sin guardar cambios
+
+	4.4 Configurar proxy JMETER
+	iniciar por conola JMETER con este comando:
+	- jmeter -H my.proxy.server -P 8000 -u username -a password -N localhost
+	para el caso:
+	jmeter -H 192.168.149.129 -P 8080
+
+Para usar mitmproxy con certificados de seguridad y algo mas escondido, vea este tutorial:
+https://blog.heckel.xyz/2013/07/01/how-to-use-mitmproxy-to-read-and-modify-https-traffic-of-your-phone/
+(en el cual se redireccionan peticiones y ademas se instala el certificado de seguridad)

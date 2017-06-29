@@ -101,7 +101,9 @@ public class EpisodeController {
 
 			return ResponseEntity.ok("Episode saved, Doctor will diagnostic this");
 		} catch (IOException e) {
-			return ResponseEntity.badRequest().body("Problem with the file : " + e);
+			String mes = e.getMessage() + " - " + e.getLocalizedMessage() + " - " + e.toString() 
+			+ " - " + e.getStackTrace();
+			return ResponseEntity.badRequest().body("Problem with the file : " + mes);
 		} catch(Exception e) {
 			return ResponseEntity.badRequest().body("It was not possible register the episode : " + e);
 		}
@@ -158,14 +160,17 @@ public class EpisodeController {
 	 *             Handle possible error with the audio file.
 	 */
 	@GetMapping("/download/{idEpisode}")
-	public ResponseEntity<?> downloadEpisode(@PathVariable("idEpisode") int idEpisode) throws IOException {
+	public ResponseEntity<?> downloadEpisode(@PathVariable("idEpisode") int idEpisode
+			, HttpServletRequest request) throws IOException {
 		String nameAudio = episodeService.getPathAudio(idEpisode);
-
+				
 		if (nameAudio == null || nameAudio.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No Audio File");
 		}
 
-		File file = new File(global.getFolderAudio() + nameAudio);
+		String pathAudio = request.getSession().getServletContext().getRealPath("/")+global.getFolderAudio();
+		
+		File file = new File(pathAudio + nameAudio);
 		HttpHeaders respHeaders = new HttpHeaders();
 		respHeaders.setContentDispositionFormData("attachment", nameAudio);
 

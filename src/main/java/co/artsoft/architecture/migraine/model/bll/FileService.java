@@ -39,8 +39,8 @@ public class FileService {
 	 * @throws IOException: throws either error handling files.
 	 */
 	public String storageFile(MultipartFile file, Long identifierAudio, HttpServletRequest request) throws IOException {		
-		//String pathAudio = request.getSession().getServletContext().getRealPath("/")+global.getFolderAudio();
-		String pathAudio = global.getFolderAudio();
+		String pathAudio = request.getSession().getServletContext().getRealPath("/")+global.getFolderAudio();
+		//String pathAudio = global.getFolderAudio();
 		File folder = new File(pathAudio);
 		if (!folder.exists()) {
 			folder.mkdir(); 

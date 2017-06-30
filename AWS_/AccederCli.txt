@@ -1,0 +1,28 @@
+Objetivo: Ingresar a AWS CLI:
+
+En eclipse:
+https://aws.amazon.com/es/eclipse/
+
+https://aws.amazon.com/es/getting-started/tutorials/backup-to-s3-cli/
+1. En linea de comandos escribir: 
+- aws configure  (Si no reconoce AWS, coloquelo como variable de entorno: C:\Program Files\Amazon\AWSCLI )
+
+2. Solicitara informacion (utilice el archivo credentials que se obtuvo primero, 
+par este caso: "credentials_acceso_API_AWS.csv")
+
+AWS Access Key ID [None]: (en el archivo esta)
+AWS Secret Access Key [None]: (en el archivo esta)
+Default region name [None]: Introduzca us-east-1
+Default output format [None]: Introduzca json
+
+3. Crear un bucket (carpeta con permisos propios)
+aws s3 mb s3://artsoft_audiofiles
+
+4. Subir un archivo:
+aws s3 cp archivo.extension s3://artsoft_audiofiles/
+
+5. Descargar archivo
+aws s3 cp s3://artsoft_audiofiles/archivo.extension ./
+ 
+6. Eliminar archivo:
+aws s3 rm s3://artsoft_audiofiles/archivo.extension

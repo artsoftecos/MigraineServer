@@ -41,6 +41,7 @@ public class FileService {
 	public String storageFile(MultipartFile file, Long identifierAudio, HttpServletRequest request) throws IOException {		
 		String pathAudio = request.getSession().getServletContext().getRealPath("/")+global.getFolderAudio();
 		//String pathAudio = global.getFolderAudio();
+		// el path es: http://34.230.130.185/audio/3bad_boys_2.mp3
 		File folder = new File(pathAudio);
 		if (!folder.exists()) {
 			folder.mkdir(); 

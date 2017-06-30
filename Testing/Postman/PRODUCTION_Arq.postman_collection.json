@@ -1,0 +1,96 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Arq copy",
+		"_postman_id": "41b96f24-1de8-3af1-84b4-75cb3fbf5d94",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "PROD - 34.230.130.185",
+			"request": {
+				"url": "http://34.230.130.185/episode/register",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "audioFile",
+							"description": "",
+							"type": "file",
+							"src": "bad_boys_2.mp3"
+						},
+						{
+							"key": "data",
+							"value": "{\t\n    \"painLevel\": 3,\n    \"sleepPattern\": \"poco\",\n    \"foods\": [\n        {\n            \"id\": 3\n        },\n        {\n            \"id\": 2\n        }\n    ],\n    \"locations\": [\n\t\t{\n\t\t\t\"id\": 1\n\t\t},\n\t\t{\n\t\t\t\"id\": 2\n\t\t}\n\t],\n    \"medicines\": [\n\t\t{\n\t\t\t\"id\": 1\n\t\t},\n\t\t{\n\t\t\t\"id\": 2\n\t\t}\n\t],\n    \"physicalActivity\": [\n\t\t{\n\t\t\t\"id\": 2\n\t\t},\n\t\t{\n\t\t\t\"id\": 3\n\t\t}\n\t],\n\t\"user\" : {\n\t\t\"documentNumber\" : \"1014207336\"\n\t}\n}",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": "registrar episodios"
+			},
+			"response": []
+		},
+		{
+			"name": "PROD - 34.230.130.185",
+			"request": {
+				"url": "http://34.230.130.185/episode/patient/1014207336",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Consulta de episodios de paciente"
+			},
+			"response": []
+		},
+		{
+			"name": "PROD - 34.230.130.185",
+			"request": {
+				"url": "http://34.230.130.185/episode/2",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Consulta de episodio de migraña"
+			},
+			"response": []
+		},
+		{
+			"name": "PROD - 34.230.130.185",
+			"request": {
+				"url": "http://34.230.130.185/episode/download/5",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Descarga del archivo de audio"
+			},
+			"response": []
+		},
+		{
+			"name": "PROD - 34.230.130.185",
+			"request": {
+				"url": "http://34.230.130.185/diagnostic/register",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\t\r\n    \"episode\": {\r\n\t\t\"id\" : \"2\"\r\n\t},\r\n\t\"user\": {\r\n\t\t\"documentNumber\" : \"1014207335\"\r\n\t},\r\n    \"foods\": [\r\n        {\r\n            \"id\": 5\r\n        }\r\n    ],\r\n    \"medicines\": [\r\n\t\t{\r\n\t\t\t\"id\": 2\r\n\t\t}\r\n\t],\r\n    \"physicalActivity\": [\r\n\t\t{\r\n\t\t\t\"id\": 2\r\n\t\t}\r\n\t]\r\n}\r\n"
+				},
+				"description": "Registro de diagnostico"
+			},
+			"response": []
+		}
+	]
+}

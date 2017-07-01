@@ -1,6 +1,8 @@
 package co.artsoft.architecture.migraine.model.bll;
 
 import java.io.File;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.amazonaws.AmazonClientException;
@@ -16,21 +18,19 @@ import com.amazonaws.services.s3.transfer.Upload;
 @Service
 public class AwsService {
 
-	// private static AWSCredentials credentials = null;
 	private static TransferManager tx;
-	private static String bucketName = "artsoft_audiofiles";
+	
+	@Value("${amazon.s3.default-bucket}")
+	private String bucketName;
 
 	private AwsService() {
-		// AWSCredentials credentials = new
-		// BasicAWSCredentials("KEY",
-		// "SECRET");
+		//AWSCredentials credentials = new BasicAWSCredentials("KEY_ID", "SECRET");
 		// AmazonS3 s3Client =
 		// AmazonS3ClientBuilder.standard().withCredentials(new
 		// AWSStaticCredentialsProvider(credentials)).build();
-
 		try {
 			// credentials = new ProfileCredentialsProvider().getCredentials();
-			AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
+			AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_1).build();						
 			tx = TransferManagerBuilder.standard().withS3Client(s3Client).build();
 		} catch (Exception e) {
 			throw new AmazonClientException("Cannot load the credentials from the credential profiles file. "

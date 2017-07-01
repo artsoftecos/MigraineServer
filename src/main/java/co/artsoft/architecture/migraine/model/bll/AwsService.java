@@ -22,8 +22,8 @@ public class AwsService {
 
 	private AwsService() {
 		// AWSCredentials credentials = new
-		// BasicAWSCredentials("AKIAJTJG5ZULXA6SORSA",
-		// "Jl9nBO4zRCymz9cYydEE5OIY5UFAPCJ2WPUqhTf7");
+		// BasicAWSCredentials("KEY",
+		// "SECRET");
 		// AmazonS3 s3Client =
 		// AmazonS3ClientBuilder.standard().withCredentials(new
 		// AWSStaticCredentialsProvider(credentials)).build();

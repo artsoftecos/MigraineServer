@@ -1,0 +1,168 @@
+﻿1. Publicar aplicación:
+
+Se debe crear una instancia por Elastick beanstalk.
+El tipo debe ser "Web Server environment"
+Se indica que se va a cargar archivo y se carga el archivo war.
+La plataforma Tomcat.
+
+Se puede dejar la configuración por defecto propuesta por Amazon.
+
+2. Acceso a Base de datos:
+
+Dentro del panel de configuración ir a "RDS", allí se crea una instancia de base de datos.
+Se ingersa el usuario y contraseña. (el crea la base de datos con nombre ebdb)
+
+Ir a "View RDS Console", aca se realizan configuraciones adicionales:
+- Puede ir a Instance Actions (en el menu inferior) y ir a detalles, aca se muestra la información de configuración de la instancia de base de datos.
+- Para poder acceder a la bd desde su equipo local dirijase a:
+* en el dashboard EC2.
+* En el menu de la izquierda dirijase a "Security groups"
+* en la tabla seleccione el "Security group for Bd"
+* en la pestaña inbound usd puede colocar en los combos:
+ ** MyIP : (toma su ip publica y le genera regla)
+ ** IP : Puede colocar cualquier IP publica.
+ ** Verifique que no halla quitado del inbound el security group de la instrancia elastick 
+ (lo necesita para indicar que ese servidor ingresa a la bd, por la aplicacion )
+ 
+3. Subida de paquete war
+
+Ir a elastick y en dashboard subir el war dando click en "update and deploy"
+
+4. SDK de Amazon
+
+Para utilizar varios servicios de Amazon como lo es S3 (Almacenamiento de archivos), Aws expone servicios Rest, pero para consumirlos
+se debe tener lo siguiente:
+4.1. En pom.xml tener dependencia a aws-java-sdk.
+4.2. Configurar las llaves (API_KEY y SECRET) para consumir los servicios.
+
+http://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/credentials.html#credentials-file-format
+(Se va a crear un usuario en AWS, al cual se le generaran esas llaves, eso hace que toda peticiòn este asociada a ese usuario (para desarrollo),
+cuando se despliega, ya no se usa el usuario, se debe agregar permisos al rol con el que esta corriendo la instancia de elastick)
+
+- En el dashboard ir a IAM.
+- Ir al botòn "Add user"
+- Darle un userName y seleccionar "Programmatic Access"
+- En permisos: seleccionar "Attach existing policies direclty" y escoger
+AdministratorAccess, siguiente y crear usuario.
+- El permite descargar un archivo csv, en el cual viene el api_key y el secreto.
+
+4.3. Comenzar a usar el sdk
+Al ya tener las llaves, se debe ir a la consola y configurarlas (crea un archivo credentials 
+que permite a la api consultar las credenciales y no quemarlas en el codigo).
+
+En eclipse:
+https://aws.amazon.com/es/eclipse/
+
+En la consola escribir (sobre el proyecto):
+- aws configure  (ingresar las llaves, y colocar en region = us-east-1, en format = json)
+(esto crea un archivo : ~/.aws/credentials) ¡No subir este archivo a ningun lado!
+
+** Comandos adicionales:
+Crear un bucket (carpeta con permisos propios)
+aws s3 mb s3://artsoft_audiofiles
+
+Subir un archivo:
+aws s3 cp archivo.extension s3://<Bucket_name>/
+
+Descargar archivo
+aws s3 cp s3://<Bucket_name>/archivo.extension ./
+ 
+Eliminar archivo:
+aws s3 rm s3://<Bucket_name>/archivo.extension
+
+
+5. Subir archivos a Aws 
+El repositorio de archivos de amazon se llama S3, usand el sdk se pueden almacenar y obtener los archivos.
+
+5.1. Crear un bucket (Repositorio) en S3.
+En el dashboard ir a  S3 y crear el bucket ahí.
+
+5.2. Guarde archivos y obtengalos con el sdk.
+Se deben crear las funciones para guardar el archivo (PutObject) y para obtenerlo (GetObject),
+para eso siempre hay que enviar el nombre del bucket en el cual se desea almacenar, el nombre del archivo y 
+el archivo como tipo "File".
+Sea para enviarlo o igualmente para obtenerlo.
+
+5.3. La instancia elastick acceda a S3.
+http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html
+Como el servidor S3 es externo a nuestra instancia, se debe establecer un medio para que conoscan los permisos y pueda cargar o descargar un archivo.
+S3 usa un medio de seguridad que se puede encriptar.
+El acceso  se hace por roles, que se deben configurar en elastick y en S3.
+
+Se puede acceder desde elastick a S3 por medio de 2 formas:
+
+A. Crear un nuevo rol y reemplazar el existente.
+B. Asociar una politica mas al rol que tiene la instancia. 
+(https://www.youtube.com/watch?v=C4AyfV3Z3xs)
+
+5.3.1 Crear role:
+- Ir a IAM
+- Crear un rol en IAM (en el dashboard). (tipo: Aws Service Role -> Amazon EC2)
+- Seleccione las politicas (AmazonS3FullAccess)
+- De nombre y descripcion
+- Para este caso, se creo: Get_AudioFiles.
+
+* Asociar el role con la instancia:
+- Ir a EC2.
+- Ir a instances (menu izquierda)
+- Ir al botón Actions -> Instance settings -> Attach/Replace IAM Role
+- Cambiar el rol.
+
+5.3.2 Agregar permiso al rol de elastick.
+- Se debe mirar cual es el rol que esta usando elastick, para ello ir en el dashboard a elastick y en configure
+ir a Instances y ver el nombre del rol campo "Instance profile" 
+- Ir a IAM
+- Ir a roles.
+- Dar click sobre el rol encontrado, ir a agregar la política
+- Ir en las pestañas a Permissions -> Attach policy -> AmazonS3FullAccess
+
+5.3.3 Permisos desde el bucket al rol.
+Lo que se a hecho fue indicar que el rol que usa elastick, tiene full acceso a S3, pero desde el bucket tambien se debe establecer 
+que usuarios, roles u otro IAM puede accederlo. 
+
+- Ir a S3 y dar click sobre el bucket.
+- Ir a la pestaña "Permissions" y dar click al boton "Bucket policy"
+Aca se configurara que el rol XXX tendra acceso de ciertas acciones XXXX al recurso XXXX, para este caso se hara:
+Configura el rol de elastick [arn:aws:iam::370472337765:role/Get_AudioFiles] 
+que tendra accionnes a todo S3 [s3:*], aunque se puede por acciones especificas, y el recurso este bucket
+[arn:aws:s3:::artsoft_audiofiles/*]
+
+
+Ejemplo:
+{
+    "Version": "2012-10-17",
+    "Id": "Policy1498969572760",
+    "Statement": [
+        {
+            "Sid": "Stmt1498969569928",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::370472337765:role/Get_AudioFiles"
+            },
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::artsoft_audiofiles",
+                "arn:aws:s3:::artsoft_audiofiles/*"
+            ]
+        }
+    ]
+}
+
+6. Acceder a la instancia por SSH
+Para acceder a la instancia elastick, se debe tener una llave publica para hacer cifrado asimetrico:
+
+- Ir a EC2 y escoger "Key pairs", generar la llave.
+- Ir a elastick -> configuration -> instances
+- Cambiar el campo "EC2 Key Pair" y seleccionar el keypar que se acabo de crear.
+- Descargar Putty.
+- Abrir Putty Gen y cargar la llave descargada.
+- Dar click al boton "save private key" y deje el mismo nombre de la llave que descargo. (esta queda con extension pk)
+- Abrir Putty y seleccionar:
+*En Session: Host : (este valor se obtiene de aws, ir a EC2 -> running instances -> click derecho
+y dar click en connect (esto abre una modal.. ir a ejemplo y tomar la parte que dice user@resto_url))
+*En connection -> SSH -> Auth (Browse a la private key generada).
+*En connection -> Data -> Auto-Login name : Colocar el user name (en este caso es el del Host, el que esta antes del "@")
+- Click en Open.
+
+
+7. 

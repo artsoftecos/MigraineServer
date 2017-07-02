@@ -90,7 +90,7 @@
 		 <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk</artifactId>
-            <version>1.11.157</version>
+            <version>1.11.158</version>
         </dependency>		
 	</dependencies>	    
 	<packaging>war</packaging>

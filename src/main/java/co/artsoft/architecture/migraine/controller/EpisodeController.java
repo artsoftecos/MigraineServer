@@ -24,7 +24,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import co.artsoft.architecture.migraine.GlobalProperties;
 import co.artsoft.architecture.migraine.model.bll.DiagnosticService;
 import co.artsoft.architecture.migraine.model.bll.EpisodeService;
 import co.artsoft.architecture.migraine.model.bll.FileService;
@@ -62,12 +61,6 @@ public class EpisodeController {
 	 * Singleton to handle unique number of audio files.
 	 */
 	AtomicLong identifierAudio = new AtomicLong();
-
-	/**
-	 * Global properties.
-	 */
-	@Autowired
-	private GlobalProperties global;
 	
 	/**
 	 * Register episode of migraine
@@ -156,21 +149,18 @@ public class EpisodeController {
 	 * @param idEpisode:
 	 *            Identifier of the episode.
 	 * @return the audio file of the episode.
-	 * @throws IOException:
-	 *             Handle possible error with the audio file.
+	 * @throws Exception : if any communication with S3 could be finished in error.
 	 */
 	@GetMapping("/download/{idEpisode}")
 	public ResponseEntity<?> downloadEpisode(@PathVariable("idEpisode") int idEpisode
-			, HttpServletRequest request) throws IOException {
+			, HttpServletRequest request) throws Exception {
 		String nameAudio = episodeService.getPathAudio(idEpisode);
 				
 		if (nameAudio == null || nameAudio.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No Audio File");
 		}
 
-		String pathAudio = request.getSession().getServletContext().getRealPath("/")+global.getFolderAudio();
-		
-		File file = new File(pathAudio + nameAudio);
+		File file = fileService.getFile(nameAudio, request);		
 		HttpHeaders respHeaders = new HttpHeaders();
 		respHeaders.setContentDispositionFormData("attachment", nameAudio);
 

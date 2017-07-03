@@ -1,4 +1,4 @@
-@CopyRight ArtSoft
+﻿@CopyRight ArtSoft
 
 https://stormpath.com/blog/tutorial-spring-boot-war-files
 https://www.youtube.com/watch?v=VAY20v-ppQM
@@ -76,17 +76,39 @@ Gateway (puerta de enlace): (ipconfig en windows): 192.168.149.2
 4. alterando los mensajes. (alterando integridad)
 	Se va a usar mitmproxy. (se debe configurar el proxy, para indicar por donde deben salir las peticiones (hacia la maquina que ataca)).
 
-	4.1 Configure el proxy en la maquina windows (victima)
-	- en la maquina victima (windows), configure el proxy (puede ser el de Internet explorer 
-	(herramientas -> opciones de internet -> conexiones -> configuracion LAN))
-	para que le apunte a la ip linux (en este caso 192.168.149.129), con el puerto 8080.
-
-	4.2 Iniciar captura
+	4.1 Iniciar captura
 	- En la maquina linux inicie desde consola mitmproxy:
 	mitmproxy --host
 
-	4.3 interceptar y alterar peticiones hechas en la victima. (victima)
-	- Realice peticiones desde windows..
+	4.2 Configure cliente PC
+
+		4.2.1 Configure el proxy en la maquina windows (victima)
+		- en la maquina victima (windows), configure el proxy (puede ser el de Internet explorer 
+		(herramientas -> opciones de internet -> conexiones -> configuracion LAN))
+		para que le apunte a la ip linux (en este caso 192.168.149.129), con el puerto 8080.
+
+	4.3 Configure cliente celular
+		Configurar ip si es necesario: http://www.thegeeky.space/2015/06/how-to-set-static-ip-address-and-networking-details-in-kali-linux.html
+
+		4.3.1 Descargue e instale el certificado de seguridad CA de mitmproxy
+		
+		* Obtenga IP del celular (para saber si estan en la misma red): 
+		vaya a ajustes -> acerca del tefono -> estado (Aca se ve la ip).
+		* Configurar la red wiffi: 
+		Vaya a ajustes -> wiffi -> sobre la red wan mantenga oprimido (se abrira una ventana y le da modificar red)
+		y le da en configurar proxy manual.
+		- Proxy ip: se coloca la ip de la maquina atacante. (Kali linux)
+		- Port: 8080
+		* En un navegador ir a mitm.it (se desplegara una pantalla para descargar el certficado de seguridad de mitmproxy)
+		de como nombre "mitmproxy-ca-cert" (se descargara en downloads el certificado)
+		* para instalarlo ir a ajustes -> seguridad -> "Instalar desde la tarjeta SD" (y buscarlo en descargas)
+		Coloquele de nombre "mitmproxy-ca-cert" y guardelo.
+		* Para verificar ir a "credenciales confiables" y seleccione el tab usuario, aca debería aparecer
+		el certficado instalado.
+
+	4.4 interceptar y alterar peticiones hechas en la victima. (victima)
+
+	- Realice peticiones desde windows o el celular
 	* para ver peticiones en detalle, de click o navegue con las flechas. 
 	* para salir del detalle de la petición, escriba "q"
 	Para alterar las peticiones haga:
@@ -96,7 +118,7 @@ Gateway (puerta de enlace): (ipconfig en windows): 192.168.149.2
 	* de clic en "a", para dejar pasar un flujo, de "A" para dejar pasar todo el flujo.
 	* utilice este comenado ":q!" para salir sin guardar cambios
 
-	4.4 Configurar proxy JMETER
+	4.5 Configurar proxy JMETER
 	iniciar por conola JMETER con este comando:
 	- jmeter -H my.proxy.server -P 8000 -u username -a password -N localhost
 	para el caso:

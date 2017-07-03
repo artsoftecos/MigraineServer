@@ -11,14 +11,14 @@ import co.artsoft.architecture.migraine.model.dao.EpisodeRepository;
 import co.artsoft.architecture.migraine.model.dao.FoodRepository;
 import co.artsoft.architecture.migraine.model.dao.LocationRepository;
 import co.artsoft.architecture.migraine.model.dao.MedicineRepository;
+import co.artsoft.architecture.migraine.model.dao.PatientRepository;
 import co.artsoft.architecture.migraine.model.dao.PhysicalActivityRepository;
-import co.artsoft.architecture.migraine.model.dao.UserRepository;
 import co.artsoft.architecture.migraine.model.entity.Episode;
 import co.artsoft.architecture.migraine.model.entity.Food;
 import co.artsoft.architecture.migraine.model.entity.Location;
 import co.artsoft.architecture.migraine.model.entity.Medicine;
+import co.artsoft.architecture.migraine.model.entity.Patient;
 import co.artsoft.architecture.migraine.model.entity.PhysicalActivity;
-import co.artsoft.architecture.migraine.model.entity.User;
 
 @Service
 public class EpisodeService {
@@ -57,7 +57,7 @@ public class EpisodeService {
 	 * Repository of Users
 	 */
 	@Autowired
-	private UserRepository userRepository;
+	private PatientRepository patientRepository;
 		
 	/**
 	 * Save episode
@@ -83,7 +83,7 @@ public class EpisodeService {
 	 * @return the episodes of the patient.
 	 */
 	public List<Episode> getEpisodesPatient(String documentNumber) {
-		return episodeRepository.findByUser(userRepository.findOne(documentNumber));		
+		return episodeRepository.findByPatient(patientRepository.findOne(documentNumber));		
 	}
 	
 	/**
@@ -169,7 +169,7 @@ public class EpisodeService {
 	 * @param episode: The episode to add the patient.
 	 */
 	private void setPatient(Episode episode) {
-		User user = userRepository.findOne(episode.getUser().getDocumentNumber());
-		episode.setUser(user);
+		Patient patient = patientRepository.findOne(episode.getPatient().getDocumentNumber());
+		episode.setPatient(patient);
 	}
 }

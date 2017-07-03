@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 import co.artsoft.architecture.migraine.model.entity.Episode;
-import co.artsoft.architecture.migraine.model.entity.User;
+import co.artsoft.architecture.migraine.model.entity.Patient;
 
 public interface EpisodeRepository extends CrudRepository<Episode, Integer> {
-	List<Episode> findByUser(User user);
-	List<Episode> findByUserAndDiagnosticsNotNullOrderByDateDesc(User user);
+	List<Episode> findByPatient(Patient patient);
+	List<Episode> findByPatientAndDiagnosticsNotNullOrderByDateDesc(Patient patient);
 }

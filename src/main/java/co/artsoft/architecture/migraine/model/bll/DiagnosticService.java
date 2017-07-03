@@ -9,17 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.artsoft.architecture.migraine.model.dao.DiagnosticRepository;
+import co.artsoft.architecture.migraine.model.dao.DoctorRepository;
 import co.artsoft.architecture.migraine.model.dao.EpisodeRepository;
 import co.artsoft.architecture.migraine.model.dao.FoodRepository;
 import co.artsoft.architecture.migraine.model.dao.MedicineRepository;
+import co.artsoft.architecture.migraine.model.dao.PatientRepository;
 import co.artsoft.architecture.migraine.model.dao.PhysicalActivityRepository;
-import co.artsoft.architecture.migraine.model.dao.UserRepository;
 import co.artsoft.architecture.migraine.model.entity.Diagnostic;
+import co.artsoft.architecture.migraine.model.entity.Doctor;
 import co.artsoft.architecture.migraine.model.entity.Episode;
 import co.artsoft.architecture.migraine.model.entity.Food;
 import co.artsoft.architecture.migraine.model.entity.Medicine;
+import co.artsoft.architecture.migraine.model.entity.Patient;
 import co.artsoft.architecture.migraine.model.entity.PhysicalActivity;
-import co.artsoft.architecture.migraine.model.entity.User;
 
 @Service
 public class DiagnosticService {
@@ -49,11 +51,17 @@ public class DiagnosticService {
 	private PhysicalActivityRepository physicalActivityRepository;
 	
 	/**
-	 * Repository of users.
+	 * Repository of doctors.
 	 */
 	@Autowired
-	private UserRepository userRepository;
+	private DoctorRepository doctorRepository;
 	
+	/**
+	 * Repository of patients.
+	 */
+	@Autowired
+	private PatientRepository patientRepository;
+		
 	/**
 	 * Repository of episode.
 	 */
@@ -128,8 +136,8 @@ public class DiagnosticService {
 	 * @param diagnostic: The diagnostic to add the doctor.
 	 */
 	private void setDoctor(Diagnostic diagnostic) {
-		User user = userRepository.findOne(diagnostic.getUser().getDocumentNumber());
-		diagnostic.setUser(user);
+		Doctor doctor = doctorRepository.findOne(diagnostic.getDoctor().getCode());
+		diagnostic.setDoctor(doctor);
 	}
 	
 	/**
@@ -149,8 +157,8 @@ public class DiagnosticService {
 	public Diagnostic getLatestDiagnostic(String documentPatient) {		
 		//TODO: get latest diagnostic
 		Diagnostic latestDiagnostic = null;
-		User user = userRepository.findOne(documentPatient);
-		List<Episode> episodes = episodeRepository.findByUserAndDiagnosticsNotNullOrderByDateDesc(user);
+		Patient patient = patientRepository.findOne(documentPatient);
+		List<Episode> episodes = episodeRepository.findByPatientAndDiagnosticsNotNullOrderByDateDesc(patient);
 		
 		if (episodes != null && episodes.size() > 0) {
 			List<Diagnostic> diagnosticList = new ArrayList<>(episodes.get(episodes.size() - 1).getDiagnostics());						

@@ -47,7 +47,7 @@ Cuerpo Json: (variable data)
 			"id": 3
 		}
 	],
-	"user" : {
+	"patient" : {
 		"documentNumber" : "1014207336"
 	}
 }
@@ -80,8 +80,8 @@ Cuerpo Json:
     "episode": {
 		"id" : "2"
 	},
-	"user": {
-		"documentNumber" : "1014207335"
+	"doctor": {
+		"code" : "Cod_1"
 	},
     "foods": [
         {

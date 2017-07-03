@@ -88,7 +88,7 @@ public class EpisodeController {
 				episode.setAudioPath(fileService.storageFile(file, identifierAudio.getAndIncrement(), request));
 			}
 			episodeService.saveRepository(episode);
-			Diagnostic diagnostic = diagnosticService.getLatestDiagnostic(episode.getUser().getDocumentNumber());
+			Diagnostic diagnostic = diagnosticService.getLatestDiagnostic(episode.getPatient().getDocumentNumber());
 			if (diagnostic != null)
 				return ResponseEntity.ok(diagnostic);
 

@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "Arq",
-		"_postman_id": "fb0e335d-4fc2-1dfc-2044-a2cecf8131c6",
+		"_postman_id": "cf871de6-883f-1949-4a1b-dcf7460c1fe7",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -18,13 +18,13 @@
 					"formdata": [
 						{
 							"key": "audioFile",
-							"value": "",
 							"description": "",
-							"type": "file"
+							"type": "file",
+							"src": "bad_boys_2.mp3"
 						},
 						{
 							"key": "data",
-							"value": "{\t\n    \"painLevel\": 3,\n    \"sleepPattern\": \"poco\",\n    \"foods\": [\n        {\n            \"id\": 3\n        },\n        {\n            \"id\": 2\n        }\n    ],\n    \"locations\": [\n\t\t{\n\t\t\t\"id\": 1\n\t\t},\n\t\t{\n\t\t\t\"id\": 2\n\t\t}\n\t],\n    \"medicines\": [\n\t\t{\n\t\t\t\"id\": 1\n\t\t},\n\t\t{\n\t\t\t\"id\": 2\n\t\t}\n\t],\n    \"physicalActivity\": [\n\t\t{\n\t\t\t\"id\": 2\n\t\t},\n\t\t{\n\t\t\t\"id\": 3\n\t\t}\n\t],\n\t\"user\" : {\n\t\t\"documentNumber\" : \"1014207336\"\n\t}\n}",
+							"value": "{\t\n    \"painLevel\": 3,\n    \"sleepPattern\": \"poco\",\n    \"foods\": [\n        {\n            \"id\": 3\n        },\n        {\n            \"id\": 2\n        }\n    ],\n    \"locations\": [\n\t\t{\n\t\t\t\"id\": 1\n\t\t},\n\t\t{\n\t\t\t\"id\": 2\n\t\t}\n\t],\n    \"medicines\": [\n\t\t{\n\t\t\t\"id\": 1\n\t\t},\n\t\t{\n\t\t\t\"id\": 2\n\t\t}\n\t],\n    \"physicalActivity\": [\n\t\t{\n\t\t\t\"id\": 2\n\t\t},\n\t\t{\n\t\t\t\"id\": 3\n\t\t}\n\t],\n\t\"patient\" : {\n\t\t\"documentNumber\" : \"1014207336\"\n\t}\n}",
 							"description": "",
 							"type": "text"
 						}
@@ -40,7 +40,10 @@
 				"url": "http://localhost:8080/episode/patient/1014207336",
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"description": "Consulta de episodios de paciente"
 			},
 			"response": []
@@ -51,7 +54,10 @@
 				"url": "http://localhost:8080/episode/2",
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"description": "Consulta de episodio de migraña"
 			},
 			"response": []
@@ -62,7 +68,10 @@
 				"url": "http://localhost:8080/episode/download/2",
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"description": "Descarga del archivo de audio"
 			},
 			"response": []
@@ -86,7 +95,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\t\r\n    \"episode\": {\r\n\t\t\"id\" : \"2\"\r\n\t},\r\n\t\"user\": {\r\n\t\t\"documentNumber\" : \"1014207335\"\r\n\t},\r\n    \"foods\": [\r\n        {\r\n            \"id\": 5\r\n        }\r\n    ],\r\n    \"medicines\": [\r\n\t\t{\r\n\t\t\t\"id\": 2\r\n\t\t}\r\n\t],\r\n    \"physicalActivity\": [\r\n\t\t{\r\n\t\t\t\"id\": 2\r\n\t\t}\r\n\t]\r\n}\r\n"
+					"raw": "{\t\r\n    \"episode\": {\r\n\t\t\"id\" : \"2\"\r\n\t},\r\n\t\"doctor\": {\r\n\t\t\"code\" : \"Cod_1\"\r\n\t},\r\n    \"foods\": [\r\n        {\r\n            \"id\": 5\r\n        }\r\n    ],\r\n    \"medicines\": [\r\n\t\t{\r\n\t\t\t\"id\": 2\r\n\t\t}\r\n\t],\r\n    \"physicalActivity\": [\r\n\t\t{\r\n\t\t\t\"id\": 2\r\n\t\t}\r\n\t]\r\n}\r\n"
 				},
 				"description": "Registro de diagnostico"
 			},

@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FilenameUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,7 @@ import co.artsoft.architecture.migraine.GlobalProperties;
 @Service
 public class FileService {
 	
+	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 	/**
 	 * global properties of the application.
 	 */
@@ -55,9 +58,10 @@ public class FileService {
 	 * @throws AmazonClientException 
 	 * @throws AmazonServiceException 
 	 */
-	public String storageFile(MultipartFile file, Long identifierAudio, HttpServletRequest request) throws IOException, AmazonServiceException, AmazonClientException, InterruptedException {
+	public String storageFile(MultipartFile file, Long identifierAudio, HttpServletRequest request) throws IOException, AmazonServiceException, AmazonClientException, InterruptedException {		
 		String name = "";
 		if (fileStorage.equals("Amazon")) {
+			LOGGER.info("	AWS: Start transform the temp file.");
 			String extension = FilenameUtils.getExtension(file.getOriginalFilename());
 			name = FilenameUtils.getBaseName(file.getOriginalFilename());
 			byte[] bytes = file.getBytes();
@@ -65,10 +69,12 @@ public class FileService {
 		    FileOutputStream fos = new FileOutputStream(temp);
 		    fos.write(bytes);
 		    fos.close();
+		    LOGGER.info("	AWS: Finish transform the temp file.");
 			awsService.uploadFile(temp);
 			name = temp.getName();
 		} else {
 			//Local
+			LOGGER.info("	local: Start Save local file.");
 			String pathAudio = request.getSession().getServletContext().getRealPath("/")+global.getFolderAudio();
 			File folder = new File(pathAudio);
 			if (!folder.exists()) {
@@ -78,7 +84,8 @@ public class FileService {
 			String audioPath = pathAudio + name;
 			byte[] bytes = file.getBytes();
 			Path path = Paths.get(audioPath);
-			Files.write(path, bytes);			
+			Files.write(path, bytes);	
+			LOGGER.info("	local: Finish Save local file.");
 		}
 		return name;
 	}

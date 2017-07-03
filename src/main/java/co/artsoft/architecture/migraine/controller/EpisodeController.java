@@ -27,6 +27,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import co.artsoft.architecture.migraine.model.bll.DiagnosticService;
 import co.artsoft.architecture.migraine.model.bll.EpisodeService;
 import co.artsoft.architecture.migraine.model.bll.FileService;
+import co.artsoft.architecture.migraine.model.bll.LoggerService;
+import co.artsoft.architecture.migraine.model.bll.LoggerService.TYPE;
 import co.artsoft.architecture.migraine.model.entity.Diagnostic;
 import co.artsoft.architecture.migraine.model.entity.Episode;
 
@@ -39,7 +41,9 @@ import co.artsoft.architecture.migraine.model.entity.Episode;
 @RestController
 @RequestMapping(path = "/episode")
 public class EpisodeController {
-
+	
+	@Autowired
+	private LoggerService LOGGER;
 	/**
 	 * Service to handle files.
 	 */
@@ -82,25 +86,31 @@ public class EpisodeController {
 			@RequestPart(name = "audioFile", required = false) MultipartFile file, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, IOException {
 		try {
+			LOGGER.initLogger("/register");
+			LOGGER.setLog("Init - register - register episode", TYPE.INFO);
 			Episode episode = new ObjectMapper().readValue(data, Episode.class);
-
+			
 			if (file != null && !file.isEmpty()) {
 				episode.setAudioPath(fileService.storageFile(file, identifierAudio.getAndIncrement(), request));
 			}
 			episodeService.saveRepository(episode);
+			LOGGER.setLog("Finish save complete entiy episode", TYPE.INFO);
+			
 			Diagnostic diagnostic = diagnosticService.getLatestDiagnostic(episode.getUser().getDocumentNumber());
+			LOGGER.setLog("Get latest diagnostic from db", TYPE.INFO);
+			
 			if (diagnostic != null)
 				return ResponseEntity.ok(diagnostic);
-
 			return ResponseEntity.ok("Episode saved, Doctor will diagnostic this");
 		} catch (IOException e) {
 			String mes = e.getMessage() + " - " + e.getLocalizedMessage() + " - " + e.toString() 
 			+ " - " + e.getStackTrace();
+			LOGGER.setLog(mes, TYPE.ERROR);
 			return ResponseEntity.badRequest().body("Problem with the file : " + mes);
 		} catch(Exception e) {
+			LOGGER.setLog(e.getMessage(), TYPE.ERROR);
 			return ResponseEntity.badRequest().body("It was not possible register the episode : " + e);
 		}
-
 	}
 
 	/**
@@ -112,14 +122,16 @@ public class EpisodeController {
 	 */
 	@GetMapping("/patient/{documentNumber}")
 	public ResponseEntity<?> getEpisodesPatient(@PathVariable("documentNumber") String documentNumber) {
+		LOGGER.initLogger("/patient/{documentNumber}");
+		LOGGER.setLog("Init get episodes patient: "+ documentNumber, TYPE.INFO);		
 		List<Episode> episodes = null;
 		try {
 			episodes = episodeService.getEpisodesPatient(documentNumber);
-
 		} catch (Exception e) {
+			LOGGER.setLog("Finish ERROR getting episodes patient: "+ documentNumber + ", "+e, TYPE.ERROR);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e);
 		}
-
+		LOGGER.setLog("Finish get episodes patient: "+ documentNumber, TYPE.INFO);
 		return ResponseEntity.ok(episodes);
 	}
 
@@ -132,14 +144,15 @@ public class EpisodeController {
 	 */
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getEpisode(@PathVariable("id") int idEpisode) {
+		LOGGER.initLogger("Episode /{id}");
 		Episode episode = null;
 		try {
 			episode = episodeService.getEpisode(idEpisode);
-
 		} catch (Exception e) {
+			LOGGER.setLog("Finish ERROR getting episode: "+ idEpisode + ", "+e, TYPE.ERROR);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e);
 		}
-
+		LOGGER.setLog("Finish getting episode: "+ idEpisode, TYPE.INFO);
 		return ResponseEntity.ok(episode);
 	}
 
@@ -154,17 +167,22 @@ public class EpisodeController {
 	@GetMapping("/download/{idEpisode}")
 	public ResponseEntity<?> downloadEpisode(@PathVariable("idEpisode") int idEpisode
 			, HttpServletRequest request) throws Exception {
+		LOGGER.initLogger("/download/{idEpisode}");		
 		String nameAudio = episodeService.getPathAudio(idEpisode);
-				
+		LOGGER.setLog("Init getting audioFile of episode: "+ idEpisode, TYPE.INFO);
+		
 		if (nameAudio == null || nameAudio.isEmpty()) {
+			LOGGER.setLog("Not audioFile : for episode "+ idEpisode, TYPE.WARNING);	
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No Audio File");
 		}
 
-		File file = fileService.getFile(nameAudio, request);		
+		File file = fileService.getFile(nameAudio, request);
+		LOGGER.setLog("	Gotten File "+ nameAudio, TYPE.INFO);	
 		HttpHeaders respHeaders = new HttpHeaders();
 		respHeaders.setContentDispositionFormData("attachment", nameAudio);
 
 		InputStreamResource isr = new InputStreamResource(new FileInputStream(file));
+		LOGGER.setLog("Finish Transformed file to response", TYPE.INFO);
 		return new ResponseEntity<InputStreamResource>(isr, respHeaders, HttpStatus.OK);
 	}
 }

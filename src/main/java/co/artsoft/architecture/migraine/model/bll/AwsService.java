@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -24,14 +25,22 @@ import com.amazonaws.services.s3.transfer.TransferManager;
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
 import com.amazonaws.services.s3.transfer.Upload;
 
+import co.artsoft.architecture.migraine.model.bll.LoggerService.TYPE;
+
 @Service
 public class AwsService {
-
+	
+	@Autowired
+	private LoggerService LOGGER;
+	
 	private static TransferManager tx;
 
 	@Value("${amazon.s3.default-bucket}")
 	private String bucketName;
 
+	@Value("${application.FileStorage.Async}")
+	private boolean isFileStorageAsync;	
+	
 	/**
 	 * Ctor. to handle interactions with AWS
 	 */
@@ -46,6 +55,7 @@ public class AwsService {
 			AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
 			tx = TransferManagerBuilder.standard().withS3Client(s3Client).build();
 		} catch (Exception e) {
+			LOGGER.setLog("-- ERROR -- Not possible communication with AWS "+e.getMessage(), TYPE.ERROR);
 			throw new AmazonClientException("Cannot load the credentials from the credential profiles file. "
 					+ "Please make sure that your credentials file is at the correct "
 					+ "location (~/.aws/credentials), and is in valid format.", e);
@@ -64,10 +74,16 @@ public class AwsService {
 	 * @throws InterruptedException:
 	 *             exception ig the uploaded file is not successful.
 	 */
-	public void uploadFile(File file) throws AmazonServiceException, AmazonClientException, InterruptedException {
+	public void uploadFile(File file) throws AmazonServiceException, AmazonClientException, InterruptedException {		
+		LOGGER.setLog("	Initialized upload of document " + file.getName() +  " to aws", TYPE.INFO);
 		PutObjectRequest request = new PutObjectRequest(bucketName, file.getName(), file);
 		Upload upload = tx.upload(request);
-		upload.waitForUploadResult();
+		if (!isFileStorageAsync) {
+			upload.waitForUploadResult();
+			LOGGER.setLog("	Finished upload Sync of document " + file.getName() +  " to aws", TYPE.INFO);
+		} else {
+			LOGGER.setLog("	Finished upload Async of document " + file.getName() +  " to aws", TYPE.INFO);
+		}		
 	}
 
 	/**
@@ -85,13 +101,17 @@ public class AwsService {
 		try {
 			// TransferManager tx =
 			// TransferManagerBuilder.standard().withS3Client(s3Client).build();
+			LOGGER.setLog("	Initialized create temp file download of document " + nameFile +  " from aws", TYPE.INFO);
 			file = File.createTempFile(nameFile, extension);
+			LOGGER.setLog("	Initialized download of document " + nameFile +  " from aws", TYPE.INFO);
 			GetObjectRequest request = new GetObjectRequest(bucketName, nameFile+extension);
 			Download download = tx.download(request, file);
 			download.waitForCompletion();
+			LOGGER.setLog("	Finished download of document " + nameFile + " from aws", TYPE.INFO);
 			// tx.shutdownNow();
 			boolean success = file.exists() && file.canRead();
 			if (!success) {
+				LOGGER.setLog("	ERROR: Not Possible getting file " + nameFile + " from aws", TYPE.ERROR);
 				throw new Exception("It was not possible to find the requested file, exists: " + file.exists()
 						+ ", possible to read: " + file.canRead());
 			}
@@ -108,10 +128,13 @@ public class AwsService {
 			 * return file;
 			 */
 		} catch (AmazonServiceException e) {
+			LOGGER.setLog("	ERROR: AmazonServiceException - file " + nameFile + " from aws, "+e.getMessage(), TYPE.ERROR);
 			throw new AmazonServiceException("error: " + e.getErrorMessage() + ", " + e.getMessage(), e);
 		} catch (FileNotFoundException e) {
+			LOGGER.setLog("	ERROR: FileNotFoundException - file " + nameFile + " from aws, "+e.getMessage(), TYPE.ERROR);
 			throw new FileNotFoundException("error: " + e.getMessage() + e.toString());
 		} catch (IOException e) {
+			LOGGER.setLog("	ERROR: IOException - file " + nameFile + " from aws, "+e.getMessage(), TYPE.ERROR);
 			throw new IOException("error: " + e.getMessage() + e.toString());
 		}
 	}

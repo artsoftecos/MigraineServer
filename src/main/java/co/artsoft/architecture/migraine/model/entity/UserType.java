@@ -5,47 +5,69 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "TipoUsuario")
+@Table(name = "TipoUsuario", uniqueConstraints = @UniqueConstraint(
+		columnNames = {"type", "document_id"}))
 public class UserType {
-
+	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	@GeneratedValue
+	@Column(name = "user_type_id", unique = true, nullable = false)
+	private Integer userTypeId;
 	
-	@Column(name = "Nombre")
-	private String name;
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "document_id", nullable = false)
+	private User user;
 	
-	@OneToMany(mappedBy = "userType")
-	private Set<User> users = new HashSet<User>();
-
-	public int getId() {
-		return id;
+	@Column(name = "type", nullable = false, length = 45)
+	private String type;
+	
+	public UserType(User user, String type) {
+		super();
+		this.user = user;
+		this.type = type;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	//El constructor por defecto lo usa hybernate, lo requiere
+	public UserType(){
+		
 	}
 
-	public String getName() {
-		return name;
+	public Integer getUserTypeId() {
+		return userTypeId;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUserTypeId(Integer userTypeId) {
+		this.userTypeId = userTypeId;
 	}
 
-	public Set<User> getUsers() {
-		return users;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUsers(Set<User> users) {
-		this.users = users;
+	public void setUser(User user) {
+		this.user = user;
 	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+	
+	
 }

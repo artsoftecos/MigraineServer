@@ -5,10 +5,12 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -16,64 +18,83 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Entity
 @Table(name = "Usuario")
 public class User {
-	
+
 	@Id
-	@Column(name = "NumeroDocumento")
-	private String documentNumber;
+	@Column(name = "document_id", unique = true, nullable = false, length = 45)
+	private String documentId;
 	
-	@Column(name = "Nombre")
-	private String name;
+	@Column(name = "password", nullable = false, length = 60)
+	private String password;
 	
-	@OneToMany(mappedBy = "user")
-	private Set<Episode> episodes = new HashSet<Episode>();
-	 
+	@Column(name = "key", nullable = false, length = 45)
+	private String key;
 	
-	@OneToMany(mappedBy = "user")
-	private Set<Diagnostic> diagnostics = new HashSet<Diagnostic>();
-		
+	@Column(name = "enabled", nullable = false)
+	private boolean enabled;
 	
-	 @ManyToOne
-	 @JoinColumn (name="idTipoUsuario")
-	 @JsonBackReference(value = "Usuario-TipoUsuario")
-	 private UserType userType;
-	
-	public Set<Diagnostic> getDiagnostics() {
-		return diagnostics;
-	}
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "user")
+	private Set<UserType> userType = new HashSet<UserType>();
 
-	public void setDiagnostics(Set<Diagnostic> diagnostics) {
-		this.diagnostics = diagnostics;
-	}
-
-	public UserType getUserType() {
-		return userType;
-	}
-
-	public void setUserType(UserType userType) {
+	public User(String documentId, String password, String key, boolean enabled, Set<UserType> userType) {
+		super();
+		this.documentId = documentId;
+		this.password = password;
+		this.key = key;
+		this.enabled = enabled;
 		this.userType = userType;
 	}
 
-	public String getDocumentNumber() {
-		return documentNumber;
+	public User(String documentId, String password, boolean enabled) {
+		super();
+		this.documentId = documentId;
+		this.password = password;
+		this.enabled = enabled;
 	}
 
-	public void setDocumentNumber(String documentNumber) {
-		this.documentNumber = documentNumber;
+	public User() {
+
 	}
 
-	public String getName() {
-		return name;
+	public String getDocumentId() {
+		return documentId;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setDocumentId(String documentId) {
+		this.documentId = documentId;
 	}
 
-	public Set<Episode> getEpisodes() {
-		return episodes;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setEpisodes(Set<Episode> episodes) {
-		this.episodes = episodes;
+	public void setPassword(String password) {
+		this.password = password;
 	}
+
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public Set<UserType> getUserType() {
+		return userType;
+	}
+
+	public void setUserType(Set<UserType> userType) {
+		this.userType = userType;
+	}
+	
+	
+
 }

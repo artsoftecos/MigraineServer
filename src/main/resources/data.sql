@@ -1,5 +1,5 @@
 ----------------INSERTING FOOD DATA ----------------------------
-INSERT INTO ebdb.alimento (nombre)
+/*INSERT INTO ebdb.alimento (nombre)
 SELECT * FROM (SELECT 'Pollo') AS tmp
 WHERE NOT EXISTS (
     SELECT nombre FROM ebdb.alimento WHERE nombre = 'Pollo'
@@ -152,4 +152,4 @@ INSERT INTO ebdb.episodio (url_audio, fecha, nivel_dolor, patron_suenio, id_paci
 SELECT * FROM (SELECT '','2017-06-25', 4, '2 horas al día', '1014207336') AS tmp
 WHERE NOT EXISTS (
     SELECT id_paciente FROM ebdb.episodio WHERE id = 1
-) LIMIT 1;
+) LIMIT 1;*/

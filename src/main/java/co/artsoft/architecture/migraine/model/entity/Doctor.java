@@ -66,7 +66,7 @@ public class Doctor {
 	public void setDiagnostics(Set<Diagnostic> diagnostics) {
 		this.diagnostics = diagnostics;
 	}
-	
+
 	public User getUser() {
 		return user;
 	}

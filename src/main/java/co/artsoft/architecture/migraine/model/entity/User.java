@@ -1,47 +1,69 @@
 package co.artsoft.architecture.migraine.model.entity;
 
+
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 
 @Entity
 @Table(name = "Usuario")
 public class User {
-	
+
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer id;
+	@Column(name = "document_id", unique = true, nullable = false, length = 45)
+	private String documentId;
 	
-	@Column(name = "Clave")
+	@Column(name = "password", nullable = false, length = 60)
 	private String password;
+	
+	@Column(name = "token", nullable = false, length = 45)
+	private String token;
+	
+	@Column(name = "enabled", nullable = false)
+	private boolean enabled;
+	
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "user")
+	private UserType userType;
 	
 	@OneToOne(mappedBy="user")
 	private Patient patient;
 	
 	@OneToOne(mappedBy="user")
 	private Doctor doctor;
-	
-	@ManyToOne
-	@JoinColumn (name="idTipoUsuario")
-	@JsonBackReference(value = "Usuario-TipoUsuario")
-	private UserType userType;
-	
-	public Integer getId() {
-		return id;
+
+	public User(String documentId, String password, String token, boolean enabled, UserType userType) {
+		super();
+		this.documentId = documentId;
+		this.password = password;
+		this.token = token;
+		this.enabled = enabled;
+		this.userType = userType;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public User(String documentId, String password, boolean enabled) {
+		super();
+		this.documentId = documentId;
+		this.password = password;
+		this.enabled = enabled;
 	}
 
+	public User() {
+	}
+
+	public String getDocumentId() {
+		return documentId;
+	}
+
+	public void setDocumentId(String documentId) {
+		this.documentId = documentId;
+	}
+	
 	public String getPassword() {
 		return password;
 	}
@@ -50,6 +72,22 @@ public class User {
 		this.password = password;
 	}
 	
+	public String getToken() {
+		return token;
+	}
+
+	public void setKey(String token) {
+		this.token = token;
+	}
+	
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+    
 	public UserType getUserType() {
 		return userType;
 	}

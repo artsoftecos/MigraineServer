@@ -1,3 +1,9 @@
+insert into ebdb.usuario(document_id, enabled, password, token)
+values('usuario', true, '$2a$10$6/jWZYBQSXe5yg8SlDh5dOV87mMC5Tbg6vPHwrZDkraG4VuTpF4IW', '12e');
+
+insert into ebdb.tipo_usuario(type, document_id)
+values('ROLE_USER', 'usuario');
+
 ----------------INSERTING FOOD DATA ----------------------------
 /*INSERT INTO ebdb.alimento (nombre)
 SELECT * FROM (SELECT 'Pollo') AS tmp

@@ -1,19 +1,15 @@
 package co.artsoft.architecture.migraine.model.entity;
 
-import java.util.HashSet;
-import java.util.Set;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 
 @Entity
 @Table(name = "Usuario")
@@ -26,20 +22,26 @@ public class User {
 	@Column(name = "password", nullable = false, length = 60)
 	private String password;
 	
-	@Column(name = "key", nullable = false, length = 45)
-	private String key;
+	@Column(name = "token", nullable = false, length = 45)
+	private String token;
 	
 	@Column(name = "enabled", nullable = false)
 	private boolean enabled;
 	
 	@OneToOne(fetch = FetchType.EAGER, mappedBy = "user")
-	private Set<UserType> userType = new HashSet<UserType>();
+	private UserType userType;
+	
+	@OneToOne(mappedBy="user")
+	private Patient patient;
+	
+	@OneToOne(mappedBy="user")
+	private Doctor doctor;
 
-	public User(String documentId, String password, String key, boolean enabled, Set<UserType> userType) {
+	public User(String documentId, String password, String token, boolean enabled, UserType userType) {
 		super();
 		this.documentId = documentId;
 		this.password = password;
-		this.key = key;
+		this.token = token;
 		this.enabled = enabled;
 		this.userType = userType;
 	}
@@ -52,7 +54,6 @@ public class User {
 	}
 
 	public User() {
-
 	}
 
 	public String getDocumentId() {
@@ -62,7 +63,7 @@ public class User {
 	public void setDocumentId(String documentId) {
 		this.documentId = documentId;
 	}
-
+	
 	public String getPassword() {
 		return password;
 	}
@@ -70,15 +71,15 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	public String getKey() {
-		return key;
+	
+	public String getToken() {
+		return token;
 	}
 
-	public void setKey(String key) {
-		this.key = key;
+	public void setKey(String token) {
+		this.token = token;
 	}
-
+	
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -86,15 +87,28 @@ public class User {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
-
-	public Set<UserType> getUserType() {
+    
+	public UserType getUserType() {
 		return userType;
 	}
 
-	public void setUserType(Set<UserType> userType) {
+	public void setUserType(UserType userType) {
 		this.userType = userType;
 	}
 	
-	
+	public Patient getPatient() {
+		return patient;
+	}
 
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+
+	public Doctor getDoctor() {
+		return doctor;
+	}
+
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
+	}
 }

@@ -61,9 +61,9 @@ public class Episode  {
    	private Set<PhysicalActivity> physicalActivity = new HashSet<PhysicalActivity>();
     
     @ManyToOne
-	@JoinColumn (name="idUsuario")
+	@JoinColumn (name="idPaciente")
 	@JsonBackReference
-	private User user;
+	private Patient patient;
     
     @OneToMany(mappedBy = "episode")
 	private Set<Diagnostic> diagnostics = new HashSet<Diagnostic>();
@@ -148,11 +148,11 @@ public class Episode  {
 		this.diagnostics = diagnostics;
 	}
 
-	public User getUser() {
-		return user;
+	public Patient getPatient() {
+		return patient;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setPatient(Patient patient) {
+		this.patient = patient;
 	}
 }

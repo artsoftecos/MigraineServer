@@ -55,15 +55,15 @@ public class Diagnostic {
 	 
 	@ManyToOne
 	@JsonBackReference
-	@JoinColumn (name="idUsuario")
-	private User user;
+	@JoinColumn (name="idDoctor")
+	private Doctor doctor;
 	 
-	 public User getUser() {
-		return user;
+	 public Doctor getDoctor() {
+		return doctor;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
 	}
 
 	public Integer getId() {

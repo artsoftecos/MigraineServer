@@ -7,21 +7,25 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import co.artsoft.architecture.migraine.model.bll.LoggerService.TYPE;
 import co.artsoft.architecture.migraine.model.dao.EpisodeRepository;
 import co.artsoft.architecture.migraine.model.dao.FoodRepository;
 import co.artsoft.architecture.migraine.model.dao.LocationRepository;
 import co.artsoft.architecture.migraine.model.dao.MedicineRepository;
+import co.artsoft.architecture.migraine.model.dao.PatientRepository;
 import co.artsoft.architecture.migraine.model.dao.PhysicalActivityRepository;
-import co.artsoft.architecture.migraine.model.dao.UserRepository;
 import co.artsoft.architecture.migraine.model.entity.Episode;
 import co.artsoft.architecture.migraine.model.entity.Food;
 import co.artsoft.architecture.migraine.model.entity.Location;
 import co.artsoft.architecture.migraine.model.entity.Medicine;
+import co.artsoft.architecture.migraine.model.entity.Patient;
 import co.artsoft.architecture.migraine.model.entity.PhysicalActivity;
-import co.artsoft.architecture.migraine.model.entity.User;
 
 @Service
 public class EpisodeService {
+	
+	@Autowired
+	private LoggerService LOGGER;
 	
 	/**
 	 * Repository of episode.
@@ -57,7 +61,7 @@ public class EpisodeService {
 	 * Repository of Users
 	 */
 	@Autowired
-	private UserRepository userRepository;
+	private PatientRepository patientRepository;
 		
 	/**
 	 * Save episode
@@ -65,16 +69,20 @@ public class EpisodeService {
 	 * @return the saved episode entity.
 	 */
 	public Episode saveRepository(Episode episode) {	
-		
+		LOGGER.setLog("	Start save episode in db", TYPE.INFO);
 		 episode.setDate(new java.sql.Timestamp(System.currentTimeMillis()));
-		 
+		  
 		 setPatient(episode);
+		 LOGGER.setLog("	Finish assign patient to episode", TYPE.INFO);		 
 		 setFoods(episode);
+		 LOGGER.setLog("	Finish assign foods to episode", TYPE.INFO);
 		 setLocations(episode);
+		 LOGGER.setLog("	Finish assign locations to episode", TYPE.INFO);
 		 setMedicine(episode);
+		 LOGGER.setLog("	Finish assign medicines to episode", TYPE.INFO);
 		 setPhysicalActivities(episode);
-		 
-		 return episodeRepository.save(episode);		 
+		 LOGGER.setLog("	Finish assign physical activities to episode", TYPE.INFO);
+		 return episodeRepository.save(episode);
 	}
 	
 	/**
@@ -83,7 +91,7 @@ public class EpisodeService {
 	 * @return the episodes of the patient.
 	 */
 	public List<Episode> getEpisodesPatient(String documentNumber) {
-		return episodeRepository.findByUser(userRepository.findOne(documentNumber));		
+		return episodeRepository.findByPatient(patientRepository.findOne(documentNumber));		
 	}
 	
 	/**
@@ -169,7 +177,7 @@ public class EpisodeService {
 	 * @param episode: The episode to add the patient.
 	 */
 	private void setPatient(Episode episode) {
-		User user = userRepository.findOne(episode.getUser().getDocumentNumber());
-		episode.setUser(user);
+		Patient patient = patientRepository.findOne(episode.getPatient().getDocumentNumber());
+		episode.setPatient(patient);
 	}
 }

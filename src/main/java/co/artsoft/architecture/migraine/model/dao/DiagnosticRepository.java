@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
 import co.artsoft.architecture.migraine.model.entity.Diagnostic;
-import co.artsoft.architecture.migraine.model.entity.User;
+import co.artsoft.architecture.migraine.model.entity.Doctor;
 
 public interface DiagnosticRepository extends CrudRepository<Diagnostic, Integer> {
-	List<Diagnostic> findByUser(User user);
+	List<Diagnostic> findByDoctor(Doctor doctor);
 }

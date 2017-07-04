@@ -1,5 +1,5 @@
 ----------------INSERTING FOOD DATA ----------------------------
-INSERT INTO ebdb.alimento (nombre)
+/*INSERT INTO ebdb.alimento (nombre)
 SELECT * FROM (SELECT 'Pollo') AS tmp
 WHERE NOT EXISTS (
     SELECT nombre FROM ebdb.alimento WHERE nombre = 'Pollo'
@@ -106,30 +106,50 @@ WHERE NOT EXISTS (
 ) LIMIT 1;
 
 ---------------- Usuarios ----------------------------------
---------Doctor------------
-INSERT INTO ebdb.usuario (numero_documento, nombre, id_tipo_usuario)
-SELECT * FROM (SELECT '1014207335', 'Doctor Patch Adams', 1) AS tmp
+------- Usuario -----------------
+INSERT INTO ebdb.usuario (clave, id_tipo_usuario)
+SELECT * FROM (SELECT 'claveDoctor1', 1) AS tmp
 WHERE NOT EXISTS (
-    SELECT numero_documento FROM ebdb.usuario WHERE numero_documento = '1014207335'
+    SELECT clave FROM ebdb.usuario WHERE id = 1
 ) LIMIT 1;
 
-INSERT INTO ebdb.usuario (numero_documento, nombre, id_tipo_usuario)
-SELECT * FROM (SELECT '1014207334', 'Doctor House', 1) AS tmp
+INSERT INTO ebdb.usuario (clave, id_tipo_usuario)
+SELECT * FROM (SELECT 'claveDoctor2', 1) AS tmp
 WHERE NOT EXISTS (
-    SELECT numero_documento FROM ebdb.usuario WHERE numero_documento = '1014207334'
+    SELECT clave FROM ebdb.usuario WHERE id = 2
+) LIMIT 1;
+
+
+INSERT INTO ebdb.usuario (clave, id_tipo_usuario)
+SELECT * FROM (SELECT 'clavePaciente', 1) AS tmp
+WHERE NOT EXISTS (
+    SELECT clave FROM ebdb.usuario WHERE id = 3
+) LIMIT 1;
+
+--------Doctor------------
+INSERT INTO ebdb.doctor (codigo, nombre, telefono_oficina, id_usuario)
+SELECT * FROM (SELECT 'Cod_1', 'Doctor Patch Adams', '252-121212',1) AS tmp
+WHERE NOT EXISTS (
+    SELECT codigo FROM ebdb.doctor WHERE codigo = 'Cod_1'
+) LIMIT 1;
+
+INSERT INTO ebdb.doctor (codigo, nombre, telefono_oficina, id_usuario)
+SELECT * FROM (SELECT 'Cod_2', 'Doctor House', '252-521212',2) AS tmp
+WHERE NOT EXISTS (
+    SELECT codigo FROM ebdb.doctor WHERE codigo = 'Cod_2'
 ) LIMIT 1;
 
 --------Paciente----------
-INSERT INTO ebdb.usuario (numero_documento, nombre, id_tipo_usuario)
-SELECT * FROM (SELECT '1014207336', 'Rebbeca Adler', 2) AS tmp
+INSERT INTO ebdb.paciente (numero_documento, nombre, telefono, id_usuario)
+SELECT * FROM (SELECT '1014207336', 'Rebbeca Adler','3002154512', 3) AS tmp
 WHERE NOT EXISTS (
-    SELECT numero_documento FROM ebdb.usuario WHERE numero_documento = '1014207336'
+    SELECT numero_documento FROM ebdb.paciente WHERE numero_documento = '1014207336'
 ) LIMIT 1;
 
 
 -------------- Episode -------------------------------------
-INSERT INTO ebdb.episodio (url_audio, fecha, nivel_dolor, patron_suenio, id_usuario)
+INSERT INTO ebdb.episodio (url_audio, fecha, nivel_dolor, patron_suenio, id_paciente)
 SELECT * FROM (SELECT '','2017-06-25', 4, '2 horas al día', '1014207336') AS tmp
 WHERE NOT EXISTS (
-    SELECT id_usuario FROM ebdb.episodio WHERE id_usuario = '1014207336'
-) LIMIT 1;
+    SELECT id_paciente FROM ebdb.episodio WHERE id = 1
+) LIMIT 1;*/

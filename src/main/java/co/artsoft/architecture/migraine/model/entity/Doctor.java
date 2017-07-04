@@ -28,7 +28,7 @@ public class Doctor {
 	private String telephoneOffice;
 	
 	@OneToOne
-	@JoinColumn(name="idUsuario")
+	@JoinColumn(name="NumeroDocumento", unique = true)
 	@JsonBackReference(value = "Doctor-Usuario")
 	private User user;
 	

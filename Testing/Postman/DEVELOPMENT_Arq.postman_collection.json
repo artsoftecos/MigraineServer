@@ -18,13 +18,13 @@
 					"formdata": [
 						{
 							"key": "audioFile",
+							"value": "",
 							"description": "",
-							"type": "file",
-							"src": "bad_boys_2.mp3"
+							"type": "file"
 						},
 						{
 							"key": "data",
-							"value": "{\t\n    \"painLevel\": 3,\n    \"sleepPattern\": \"poco\",\n    \"foods\": [\n        {\n            \"id\": 3\n        },\n        {\n            \"id\": 2\n        }\n    ],\n    \"locations\": [\n\t\t{\n\t\t\t\"id\": 1\n\t\t},\n\t\t{\n\t\t\t\"id\": 2\n\t\t}\n\t],\n    \"medicines\": [\n\t\t{\n\t\t\t\"id\": 1\n\t\t},\n\t\t{\n\t\t\t\"id\": 2\n\t\t}\n\t],\n    \"physicalActivity\": [\n\t\t{\n\t\t\t\"id\": 2\n\t\t},\n\t\t{\n\t\t\t\"id\": 3\n\t\t}\n\t],\n\t\"patient\" : {\n\t\t\"documentNumber\" : \"1014207336\"\n\t}\n}",
+							"value": "{\t\n    \"painLevel\": 3,\n    \"sleepPattern\": \"poco\",\n    \"foods\": [\n        {\n            \"id\": 3\n        },\n        {\n            \"id\": 2\n        }\n    ],\n    \"locations\": [\n\t\t{\n\t\t\t\"id\": 1\n\t\t},\n\t\t{\n\t\t\t\"id\": 2\n\t\t}\n\t],\n    \"medicines\": [\n\t\t{\n\t\t\t\"id\": 1\n\t\t},\n\t\t{\n\t\t\t\"id\": 2\n\t\t}\n\t],\n    \"physicalActivity\": [\n\t\t{\n\t\t\t\"id\": 2\n\t\t},\n\t\t{\n\t\t\t\"id\": 3\n\t\t}\n\t],\n\t\"patient\" : {\n\t\t\"subsidiaryNumber\" : \"AF_001\"\n\t}\n}",
 							"description": "",
 							"type": "text"
 						}
@@ -68,10 +68,7 @@
 				"url": "http://localhost:8080/episode/download/2",
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
+				"body": {},
 				"description": "Descarga del archivo de audio"
 			},
 			"response": []

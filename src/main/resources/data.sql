@@ -1,15 +1,3 @@
-insert into ebdb.usuario(document_id, enabled, password, token)
-values('paciente', true, '$2a$10$6/jWZYBQSXe5yg8SlDh5dOV87mMC5Tbg6vPHwrZDkraG4VuTpF4IW', '12e');
-
-insert into ebdb.usuario(document_id, enabled, password, token)
-values('doctor', true, '$2a$10$6/jWZYBQSXe5yg8SlDh5dOV87mMC5Tbg6vPHwrZDkraG4VuTpF4IW', '12e');
-
-insert into ebdb.tipo_usuario(type, document_id)
-values('ROLE_DOCTOR', 'doctor');
-
-insert into ebdb.tipo_usuario(type, document_id)
-values('ROLE_PATIENT', 'paciente');
-
 ----------------INSERTING FOOD DATA ----------------------------
 INSERT INTO ebdb.alimento (nombre)
 SELECT * FROM (SELECT 'Pollo') AS tmp
@@ -106,23 +94,23 @@ WHERE NOT EXISTS (
 
 ---------------- Usuarios ----------------------------------
 ------- Usuario -----------------
-INSERT INTO ebdb.usuario (document_id, password, token, enabled)
-SELECT * FROM (SELECT '1014207335', 'claveDoctor1', '', 1) AS tmp
-WHERE NOT EXISTS (
-    SELECT document_id FROM ebdb.usuario WHERE document_id = '1014207335'
-) LIMIT 1;
+insert into ebdb.usuario(document_id, enabled, password, token)
+values('1014207335', true, '$2a$10$6/jWZYBQSXe5yg8SlDh5dOV87mMC5Tbg6vPHwrZDkraG4VuTpF4IW', '12e');
 
-INSERT INTO ebdb.usuario (document_id, password, token, enabled)
-SELECT * FROM (SELECT '1014207337', 'claveDoctor2', '', 1) AS tmp
-WHERE NOT EXISTS (
-    SELECT document_id FROM ebdb.usuario WHERE document_id = '1014207337'
-) LIMIT 1;
+insert into ebdb.usuario(document_id, enabled, password, token)
+values('1014207337', true, '$2a$10$6/jWZYBQSXe5yg8SlDh5dOV87mMC5Tbg6vPHwrZDkraG4VuTpF4IW', '12e');
 
-INSERT INTO ebdb.usuario (document_id, password, token, enabled)
-SELECT * FROM (SELECT '1014207336', 'clavePaciente1', '', 1) AS tmp
-WHERE NOT EXISTS (
-    SELECT document_id FROM ebdb.usuario WHERE document_id = '1014207336'
-) LIMIT 1;
+insert into ebdb.tipo_usuario(type, document_id)
+values('ROLE_DOCTOR', '1014207335');
+
+insert into ebdb.tipo_usuario(type, document_id)
+values('ROLE_DOCTOR', '1014207337');
+
+insert into ebdb.usuario(document_id, enabled, password, token)
+values('1014207336', true, '$2a$10$6/jWZYBQSXe5yg8SlDh5dOV87mMC5Tbg6vPHwrZDkraG4VuTpF4IW', '12e');
+
+insert into ebdb.tipo_usuario(type, document_id)
+values('ROLE_PATIENT', '1014207336');
 
 --------Doctor------------
 INSERT INTO ebdb.doctor (codigo, nombre, telefono_oficina, numero_documento)
@@ -145,7 +133,7 @@ WHERE NOT EXISTS (
 ) LIMIT 1;
 
 ------------------- User type ------------------------------
-INSERT INTO ebdb.tipo_usuario (user_type_id, document_id, type)
+/*INSERT INTO ebdb.tipo_usuario (user_type_id, document_id, type)
 SELECT * FROM (SELECT 1, 1014207335, 'DOCTOR') AS tmp
 WHERE NOT EXISTS (
     SELECT document_id FROM ebdb.tipo_usuario WHERE document_id = 1014207335
@@ -161,7 +149,7 @@ INSERT INTO ebdb.tipo_usuario (user_type_id, document_id, type)
 SELECT * FROM (SELECT 3, 1014207336, 'PACIENTE') AS tmp
 WHERE NOT EXISTS (
     SELECT document_id FROM ebdb.tipo_usuario WHERE document_id = 1014207336
-) LIMIT 1;
+) LIMIT 1;*/
 
 -------------- Episode -------------------------------------
 INSERT INTO ebdb.episodio (url_audio, fecha, nivel_dolor, patron_suenio, id_paciente)

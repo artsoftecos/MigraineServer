@@ -8,6 +8,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import co.artsoft.architecture.migraine.model.bll.LoggerService.TYPE;
 import co.artsoft.architecture.migraine.model.dao.DiagnosticRepository;
 import co.artsoft.architecture.migraine.model.dao.EpisodeRepository;
 import co.artsoft.architecture.migraine.model.dao.FoodRepository;
@@ -23,6 +24,9 @@ import co.artsoft.architecture.migraine.model.entity.User;
 
 @Service
 public class DiagnosticService {
+	
+	@Autowired
+	private LoggerService LOGGER;
 	
 	/**
 	 * Repository of diagnostic.
@@ -66,15 +70,19 @@ public class DiagnosticService {
 	 * @return the saved diagnostic entity.
 	 */
 	public Diagnostic saveRepository(Diagnostic diagnostic) {	
-		
+		LOGGER.setLog("	 Initialized storage diagnostic in DB", TYPE.INFO);
 		 diagnostic.setDate(new java.sql.Timestamp(System.currentTimeMillis()));
 		 
-		 setDoctor(diagnostic);	
+		 setDoctor(diagnostic);
+		 LOGGER.setLog("	Setting Doctor", TYPE.INFO);
 		 setEpisode(diagnostic);
+		 LOGGER.setLog("	Setting Episode", TYPE.INFO);
 		 setFoods(diagnostic);
+		 LOGGER.setLog("	Setting Foods", TYPE.INFO);
 		 setMedicine(diagnostic);
+		 LOGGER.setLog("	Setting Medicines", TYPE.INFO);
 		 setPhysicalActivities(diagnostic);
-		 
+		 LOGGER.setLog("	Setting Physical activities", TYPE.INFO);
 		 return diagnosticRepository.save(diagnostic);		 
 	}
 	
@@ -146,8 +154,7 @@ public class DiagnosticService {
 	 * @param documentPatient: the document number of the patient.
 	 * @return the latest diagnostic, otherwise null.
 	 */
-	public Diagnostic getLatestDiagnostic(String documentPatient) {		
-		//TODO: get latest diagnostic
+	public Diagnostic getLatestDiagnostic(String documentPatient) {
 		Diagnostic latestDiagnostic = null;
 		User user = userRepository.findOne(documentPatient);
 		List<Episode> episodes = episodeRepository.findByUserAndDiagnosticsNotNullOrderByDateDesc(user);

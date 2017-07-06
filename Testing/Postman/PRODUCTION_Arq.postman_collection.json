@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "Arq copy",
-		"_postman_id": "ae6c657e-89c3-4bbc-ff71-ac35bb31ddaa",
+		"_postman_id": "20346852-eb79-945b-44e1-9bb41cfa1bdf",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -25,7 +25,7 @@
 						},
 						{
 							"key": "data",
-							"value": "{\t\n    \"painLevel\": 3,\n    \"sleepPattern\": \"poco\",\n    \"foods\": [\n        {\n            \"id\": 3\n        },\n        {\n            \"id\": 2\n        }\n    ],\n    \"locations\": [\n\t\t{\n\t\t\t\"id\": 1\n\t\t},\n\t\t{\n\t\t\t\"id\": 2\n\t\t}\n\t],\n    \"medicines\": [\n\t\t{\n\t\t\t\"id\": 1\n\t\t},\n\t\t{\n\t\t\t\"id\": 2\n\t\t}\n\t],\n    \"physicalActivity\": [\n\t\t{\n\t\t\t\"id\": 2\n\t\t},\n\t\t{\n\t\t\t\"id\": 3\n\t\t}\n\t],\n\t\"patient\" : {\n\t\t\"documentNumber\" : \"1014207336\"\n\t}\n}",
+							"value": "{\t\n    \"painLevel\": 3,\n    \"sleepPattern\": \"poco\",\n    \"foods\": [\n        {\n            \"id\": 3\n        },\n        {\n            \"id\": 2\n        }\n    ],\n    \"locations\": [\n\t\t{\n\t\t\t\"id\": 1\n\t\t},\n\t\t{\n\t\t\t\"id\": 2\n\t\t}\n\t],\n    \"medicines\": [\n\t\t{\n\t\t\t\"id\": 1\n\t\t},\n\t\t{\n\t\t\t\"id\": 2\n\t\t}\n\t],\n    \"physicalActivity\": [\n\t\t{\n\t\t\t\"id\": 2\n\t\t},\n\t\t{\n\t\t\t\"id\": 3\n\t\t}\n\t],\n\t\"patient\" : {\n\t\t\"subsidiaryNumber\" : \"AF_001\"\n\t}\n}",
 							"description": "",
 							"type": "text"
 						}
@@ -69,7 +69,10 @@
 				"url": "http://34.230.130.185/episode/download/2",
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"description": "Descarga del archivo de audio"
 			},
 			"response": []
@@ -93,7 +96,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\t\r\n    \"episode\": {\r\n\t\t\"id\" : \"2\"\r\n\t},\r\n\t\"doctor\": {\r\n\t\t\"code\" : \"Cod_1\"\r\n\t},\r\n    \"foods\": [\r\n        {\r\n            \"id\": 5\r\n        }\r\n    ],\r\n    \"medicines\": [\r\n\t\t{\r\n\t\t\t\"id\": 2\r\n\t\t}\r\n\t],\r\n    \"physicalActivity\": [\r\n\t\t{\r\n\t\t\t\"id\": 2\r\n\t\t}\r\n\t]\r\n}\r\n"
+					"raw": "{  \r\n    \"episode\": {\r\n    \"id\" : \"2\"\r\n  },\r\n  \"doctor\": {\r\n    \"code\" : \"Cod_1\"\r\n  },\r\n    \"foods\": [\r\n        {\r\n            \"id\": 5\r\n        }\r\n    ],\r\n    \"medicines\": [\r\n    {\r\n      \"id\": 2\r\n    }\r\n  ],\r\n    \"physicalActivity\": [\r\n    {\r\n      \"id\": 2\r\n    }\r\n  ]\r\n}\r\n"
 				},
 				"description": "Registro de diagnostico"
 			},

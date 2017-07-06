@@ -18,8 +18,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 public class Patient {
 	
 	@Id
-	@Column(name = "NumeroDocumento")
-	private String documentNumber;
+	@Column(name = "NumeroAfiliado")
+	private String subsidiaryNumber;
 	
 	@Column(name = "Nombre")
 	private String name;
@@ -28,19 +28,19 @@ public class Patient {
 	private String telephone;
 	
 	@OneToOne
-	@JoinColumn(name="idUsuario")
+	@JoinColumn(name="NumeroDocumento", unique = true)
 	@JsonBackReference(value = "Paciente-Usuario")
 	private User user;
 	
 	@OneToMany(mappedBy = "patient")
 	private Set<Episode> episodes = new HashSet<Episode>();
 		
-	public String getDocumentNumber() {
-		return documentNumber;
+	public String getSubsidiaryNumber() {
+		return subsidiaryNumber;
 	}
 
-	public void setDocumentNumber(String documentNumber) {
-		this.documentNumber = documentNumber;
+	public void setSubsidiaryNumber(String subsidiaryNumber) {
+		this.subsidiaryNumber = subsidiaryNumber;
 	}
 
 	public String getName() {

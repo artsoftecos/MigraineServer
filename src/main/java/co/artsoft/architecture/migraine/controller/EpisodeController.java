@@ -99,7 +99,7 @@ public class EpisodeController {
 
 			LOGGER.setLog("Finish save complete entiy episode", TYPE.INFO);
 			
-			Diagnostic diagnostic = diagnosticService.getLatestDiagnostic(episode.getPatient().getDocumentNumber());
+			Diagnostic diagnostic = diagnosticService.getLatestDiagnostic(episode.getPatient().getSubsidiaryNumber());
 			LOGGER.setLog("Get latest diagnostic from db", TYPE.INFO);
 			
 			if (diagnostic != null)

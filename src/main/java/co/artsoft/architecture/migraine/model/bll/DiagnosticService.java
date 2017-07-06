@@ -81,16 +81,11 @@ public class DiagnosticService {
 		LOGGER.setLog("	 Initialized storage diagnostic in DB", TYPE.INFO);
 		 diagnostic.setDate(new java.sql.Timestamp(System.currentTimeMillis()));
 		 
-		 setDoctor(diagnostic);
-		 LOGGER.setLog("	Setting Doctor", TYPE.INFO);
-		 setEpisode(diagnostic);
-		 LOGGER.setLog("	Setting Episode", TYPE.INFO);
-		 setFoods(diagnostic);
-		 LOGGER.setLog("	Setting Foods", TYPE.INFO);
-		 setMedicine(diagnostic);
-		 LOGGER.setLog("	Setting Medicines", TYPE.INFO);
-		 setPhysicalActivities(diagnostic);
-		 LOGGER.setLog("	Setting Physical activities", TYPE.INFO);
+		 setDoctor(diagnostic);		 
+		 setEpisode(diagnostic);		 
+		 setFoods(diagnostic);		 
+		 setMedicine(diagnostic);		 
+		 setPhysicalActivities(diagnostic);		 
 		 return diagnosticRepository.save(diagnostic);		 
 	}
 	

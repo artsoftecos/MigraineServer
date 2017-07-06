@@ -3,6 +3,7 @@ package co.artsoft.architecture.migraine.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +34,7 @@ public class DiagnosticController {
 	 * @param diagnostic: Object Json with the information of diagnostic.
 	 * @return The diagnostic.
 	 */
+	@PreAuthorize("hasRole('ROLE_DOCTOR')")
 	@PostMapping(value="/register")
 	public ResponseEntity<?> addEpisode(@RequestBody Diagnostic diagnostic) {
 		LOGGER.initLogger("Diagnostic - /register");

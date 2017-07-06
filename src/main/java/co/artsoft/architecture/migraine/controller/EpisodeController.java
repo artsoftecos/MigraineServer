@@ -12,6 +12,7 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -81,6 +82,7 @@ public class EpisodeController {
 	 * @throws IOException:
 	 *             Exception to handle possible error getting or storing files.
 	 */
+	@PreAuthorize("hasRole('ROLE_PATIENT')")
 	@PostMapping("/register")
 	public ResponseEntity<?> addEpisode(@RequestPart("data") String data,
 			@RequestPart(name = "audioFile", required = false) MultipartFile file, HttpServletRequest request)
@@ -121,6 +123,7 @@ public class EpisodeController {
 	 *            the document number of the patient.
 	 * @return The list of episodes of the patient.
 	 */
+	@PreAuthorize("hasRole('ROLE_DOCTOR')")
 	@GetMapping("/patient/{documentNumber}")
 	public ResponseEntity<?> getEpisodesPatient(@PathVariable("documentNumber") String documentNumber) {
 		LOGGER.initLogger("/patient/{documentNumber}");
@@ -143,6 +146,7 @@ public class EpisodeController {
 	 *            Identifier of the episode to be requested.
 	 * @return the episode requested.
 	 */
+	@PreAuthorize("hasRole('ROLE_DOCTOR')")
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getEpisode(@PathVariable("id") int idEpisode) {
 		LOGGER.initLogger("Episode /{id}");
@@ -165,6 +169,7 @@ public class EpisodeController {
 	 * @return the audio file of the episode.
 	 * @throws Exception : if any communication with S3 could be finished in error.
 	 */
+	@PreAuthorize("hasRole('ROLE_DOCTOR')")
 	@GetMapping("/download/{idEpisode}")
 	public ResponseEntity<?> downloadEpisode(@PathVariable("idEpisode") int idEpisode
 			, HttpServletRequest request) throws Exception {

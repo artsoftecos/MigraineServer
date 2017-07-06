@@ -29,8 +29,8 @@
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Petición HTTP Registrar Episodio" enabled="true">
           <elementProp name="HTTPsampler.Files" elementType="HTTPFileArgs">
             <collectionProp name="HTTPFileArgs.files">
-              <elementProp name="E:\Universidad\2 Intersemestral\Arquitectura de software\Proyecto migrania\Audios\batman_60s_theme.mp3" elementType="HTTPFileArg">
-                <stringProp name="File.path">E:\Universidad\2 Intersemestral\Arquitectura de software\Proyecto migrania\Audios\batman_60s_theme.mp3</stringProp>
+              <elementProp name="E:\Universidad\2 Intersemestral\Arquitectura de software\Proyecto migrania\Audios\deadpool.mp3" elementType="HTTPFileArg">
+                <stringProp name="File.path">E:\Universidad\2 Intersemestral\Arquitectura de software\Proyecto migrania\Audios\deadpool.mp3</stringProp>
                 <stringProp name="File.paramname">audioFile</stringProp>
                 <stringProp name="File.mimetype">audio/mp3</stringProp>
               </elementProp>
@@ -40,7 +40,7 @@
             <collectionProp name="Arguments.arguments">
               <elementProp name="data" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">{	     &quot;painLevel&quot;: 3,     &quot;sleepPattern&quot;: &quot;poco&quot;,     &quot;foods&quot;: [         {             &quot;id&quot;: 3         },         {             &quot;id&quot;: 2         }     ],     &quot;locations&quot;: [ 		{ 			&quot;id&quot;: 1 		}, 		{ 			&quot;id&quot;: 2 		} 	],     &quot;medicines&quot;: [ 		{ 			&quot;id&quot;: 1 		}, 		{ 			&quot;id&quot;: 2 		} 	],     &quot;physicalActivity&quot;: [ 		{ 			&quot;id&quot;: 2 		}, 		{ 			&quot;id&quot;: 3 		} 	], 	&quot;patient&quot; : { 		&quot;subsidiaryNumber&quot; : &quot;AF_001&quot; 	} }</stringProp>
+                <stringProp name="Argument.value">{	     &quot;painLevel&quot;: 3,     &quot;sleepPattern&quot;: &quot;poco&quot;,     &quot;foods&quot;: [         {             &quot;id&quot;: 3         },         {             &quot;id&quot;: 2         }     ],     &quot;locations&quot;: [ 		{ 			&quot;id&quot;: 1 		}, 		{ 			&quot;id&quot;: 2 		} 	],     &quot;medicines&quot;: [ 		{ 			&quot;id&quot;: 1 		}, 		{ 			&quot;id&quot;: 2 		} 	],     &quot;physicalActivity&quot;: [ 		{ 			&quot;id&quot;: 2 		}, 		{ 			&quot;id&quot;: 3 		} 	], 	&quot;user&quot; : { 		&quot;documentNumber&quot; : &quot;1014207335&quot; 	} }</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 <stringProp name="Argument.name">data</stringProp>
@@ -921,8 +921,8 @@
     &quot;episode&quot;: {&#xd;
 		&quot;id&quot; : &quot;2&quot;&#xd;
 	},&#xd;
-	&quot;doctor&quot;: {&#xd;
-		&quot;code&quot; : &quot;Cod_1&quot;&#xd;
+	&quot;user&quot;: {&#xd;
+		&quot;documentNumber&quot; : &quot;1014207335&quot;&#xd;
 	},&#xd;
     &quot;foods&quot;: [&#xd;
         {&#xd;

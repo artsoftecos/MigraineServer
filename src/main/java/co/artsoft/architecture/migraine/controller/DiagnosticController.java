@@ -3,6 +3,7 @@ package co.artsoft.architecture.migraine.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;*/
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import co.artsoft.architecture.migraine.model.entity.Diagnostic;
  * @author ArtSoft
  *
  */
+@EnableAsync
 @RestController
 @RequestMapping(path = "/diagnostic")
 public class DiagnosticController {

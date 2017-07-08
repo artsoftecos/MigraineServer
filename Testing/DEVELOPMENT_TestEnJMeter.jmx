@@ -17,7 +17,7 @@
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <stringProp name="LoopController.loops">1</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">100</stringProp>
+        <stringProp name="ThreadGroup.num_threads">1300</stringProp>
         <stringProp name="ThreadGroup.ramp_time">1</stringProp>
         <longProp name="ThreadGroup.start_time">1498356076000</longProp>
         <longProp name="ThreadGroup.end_time">1498356076000</longProp>
@@ -29,8 +29,8 @@
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Petición HTTP Registrar Episodio" enabled="true">
           <elementProp name="HTTPsampler.Files" elementType="HTTPFileArgs">
             <collectionProp name="HTTPFileArgs.files">
-              <elementProp name="E:\Universidad\2 Intersemestral\Arquitectura de software\Proyecto migrania\Audios\Grabacion_51k.3gp" elementType="HTTPFileArg">
-                <stringProp name="File.path">E:\Universidad\2 Intersemestral\Arquitectura de software\Proyecto migrania\Audios\Grabacion_51k.3gp</stringProp>
+              <elementProp name="E:\Universidad\2 Intersemestral\Arquitectura de software\Proyecto migrania\Audios\vacio.3gp" elementType="HTTPFileArg">
+                <stringProp name="File.path">E:\Universidad\2 Intersemestral\Arquitectura de software\Proyecto migrania\Audios\vacio.3gp</stringProp>
                 <stringProp name="File.paramname">audioFile</stringProp>
                 <stringProp name="File.mimetype">video/3gp</stringProp>
               </elementProp>

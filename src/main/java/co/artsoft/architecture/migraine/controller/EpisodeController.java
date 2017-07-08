@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,6 +56,7 @@ import co.artsoft.architecture.migraine.model.entity.Episode;*/
  * @author ArtSoft
  *
  */
+@EnableAsync
 @RestController
 @RequestMapping(path = "/episode")
 public class EpisodeController {
@@ -97,7 +99,7 @@ public class EpisodeController {
 	 *             Exception to handle possible error parsing Entities.
 	 * @throws IOException:
 	 *             Exception to handle possible error getting or storing files.
-	 */
+	 */	
 	@PostMapping("/register")
 	public ResponseEntity<?> addEpisode(@RequestPart("data") String data,
 			@RequestPart(name = "audioFile", required = false) MultipartFile file, HttpServletRequest request)

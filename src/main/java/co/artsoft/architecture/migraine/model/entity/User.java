@@ -3,37 +3,37 @@ package co.artsoft.architecture.migraine.model.entity;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+//import javax.persistence.Column;
+//import javax.persistence.Entity;
+//import javax.persistence.Id;
+//import javax.persistence.JoinColumn;
+//import javax.persistence.ManyToOne;
+//import javax.persistence.OneToMany;
+//import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
+/*
 @Entity
-@Table(name = "Usuario")
+@Table(name = "Usuario")*/
 public class User {
 	
-	@Id
-	@Column(name = "NumeroDocumento")
+//	@Id
+//	@Column(name = "NumeroDocumento")
 	private String documentNumber;
 	
-	@Column(name = "Nombre")
+//	@Column(name = "Nombre")
 	private String name;
 	
-	@OneToMany(mappedBy = "user")
+//	@OneToMany(mappedBy = "user")
 	private Set<Episode> episodes = new HashSet<Episode>();
 	 
 	
-	@OneToMany(mappedBy = "user")
+//	@OneToMany(mappedBy = "user")
 	private Set<Diagnostic> diagnostics = new HashSet<Diagnostic>();
 		
 	
-	 @ManyToOne
-	 @JoinColumn (name="idTipoUsuario")
+//	 @ManyToOne
+//	 @JoinColumn (name="idTipoUsuario")
 	 @JsonBackReference(value = "Usuario-TipoUsuario")
 	 private UserType userType;
 	

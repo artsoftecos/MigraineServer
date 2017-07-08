@@ -1,16 +1,16 @@
 package co.artsoft.architecture.migraine.controller;
-
+/*
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatus;*/
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+/*
 import co.artsoft.architecture.migraine.model.bll.DiagnosticService;
 import co.artsoft.architecture.migraine.model.bll.LoggerService;
-import co.artsoft.architecture.migraine.model.bll.LoggerService.TYPE;
+import co.artsoft.architecture.migraine.model.bll.LoggerService.TYPE;*/
 import co.artsoft.architecture.migraine.model.entity.Diagnostic;
 
 /**
@@ -22,12 +22,12 @@ import co.artsoft.architecture.migraine.model.entity.Diagnostic;
 @RequestMapping(path = "/diagnostic")
 public class DiagnosticController {
 	
-	@Autowired
+	/*@Autowired
 	private LoggerService LOGGER;
 	
 	@Autowired
 	private DiagnosticService diagnosticService;
-	
+	*/
 	/**
 	 * Register diagnostic of episode.
 	 * @param diagnostic: Object Json with the information of diagnostic.
@@ -35,7 +35,7 @@ public class DiagnosticController {
 	 */
 	@PostMapping(value="/register")
 	public ResponseEntity<?> addEpisode(@RequestBody Diagnostic diagnostic) {
-		LOGGER.initLogger("Diagnostic - /register");
+		/*LOGGER.initLogger("Diagnostic - /register");
 		LOGGER.setLog("Init registering diagnostic", TYPE.INFO);
 		Diagnostic savedDiagnostic = null;	 
 		 try {
@@ -45,6 +45,7 @@ public class DiagnosticController {
 			 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e);
 		}	 
 		 LOGGER.setLog("Finish registering diagnostic ", TYPE.INFO);
-		 return ResponseEntity.ok(savedDiagnostic);
+		 return ResponseEntity.ok(savedDiagnostic);*/
+		return ResponseEntity.ok("OK");
 	}
 }

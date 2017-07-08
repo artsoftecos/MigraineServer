@@ -1,5 +1,22 @@
 package co.artsoft.architecture.migraine.controller;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+
+/*
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -30,7 +47,7 @@ import co.artsoft.architecture.migraine.model.bll.FileService;
 import co.artsoft.architecture.migraine.model.bll.LoggerService;
 import co.artsoft.architecture.migraine.model.bll.LoggerService.TYPE;
 import co.artsoft.architecture.migraine.model.entity.Diagnostic;
-import co.artsoft.architecture.migraine.model.entity.Episode;
+import co.artsoft.architecture.migraine.model.entity.Episode;*/
 
 /**
  * Handle every request associated with migraine's episodes.
@@ -41,30 +58,30 @@ import co.artsoft.architecture.migraine.model.entity.Episode;
 @RestController
 @RequestMapping(path = "/episode")
 public class EpisodeController {
-	
+	/*
 	@Autowired
 	private LoggerService LOGGER;
 	/**
 	 * Service to handle files.
 	 */
-	@Autowired
+	/*@Autowired
 	private FileService fileService;
 	/**
 	 * Service to handle information of episodes.
 	 */
-	@Autowired
+	/*@Autowired
 	private EpisodeService episodeService;
 
 	/**
 	 * Service to handle information of diagnostics.
 	 */
-	@Autowired
+	/*@Autowired
 	private DiagnosticService diagnosticService;
 
 	/**
 	 * Singleton to handle unique number of audio files.
 	 */
-	AtomicLong identifierAudio = new AtomicLong();
+	//AtomicLong identifierAudio = new AtomicLong();
 	
 	/**
 	 * Register episode of migraine
@@ -85,7 +102,7 @@ public class EpisodeController {
 	public ResponseEntity<?> addEpisode(@RequestPart("data") String data,
 			@RequestPart(name = "audioFile", required = false) MultipartFile file, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, IOException {
-		try {
+		/*try {
 			LOGGER.initLogger("/register");
 			LOGGER.setLog("Init - register - register episode", TYPE.INFO);
 			Episode episode = new ObjectMapper().readValue(data, Episode.class);
@@ -110,7 +127,8 @@ public class EpisodeController {
 		} catch(Exception e) {
 			LOGGER.setLog(e.getMessage(), TYPE.ERROR);
 			return ResponseEntity.badRequest().body("It was not possible register the episode : " + e);
-		}
+		}*/
+			return ResponseEntity.ok("OK");
 	}
 
 	/**
@@ -122,7 +140,7 @@ public class EpisodeController {
 	 */
 	@GetMapping("/patient/{documentNumber}")
 	public ResponseEntity<?> getEpisodesPatient(@PathVariable("documentNumber") String documentNumber) {
-		LOGGER.initLogger("/patient/{documentNumber}");
+		/*LOGGER.initLogger("/patient/{documentNumber}");
 		LOGGER.setLog("Init get episodes patient: "+ documentNumber, TYPE.INFO);		
 		List<Episode> episodes = null;
 		try {
@@ -132,7 +150,8 @@ public class EpisodeController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e);
 		}
 		LOGGER.setLog("Finish get episodes patient: "+ documentNumber, TYPE.INFO);
-		return ResponseEntity.ok(episodes);
+		return ResponseEntity.ok(episodes);*/
+		return ResponseEntity.ok("OK");
 	}
 
 	/**
@@ -144,7 +163,7 @@ public class EpisodeController {
 	 */
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getEpisode(@PathVariable("id") int idEpisode) {
-		LOGGER.initLogger("Episode /{id}");
+		/*LOGGER.initLogger("Episode /{id}");
 		Episode episode = null;
 		try {
 			episode = episodeService.getEpisode(idEpisode);
@@ -153,7 +172,8 @@ public class EpisodeController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e);
 		}
 		LOGGER.setLog("Finish getting episode: "+ idEpisode, TYPE.INFO);
-		return ResponseEntity.ok(episode);
+		return ResponseEntity.ok(episode);*/
+		return ResponseEntity.ok("OK");
 	}
 
 	/**
@@ -167,7 +187,7 @@ public class EpisodeController {
 	@GetMapping("/download/{idEpisode}")
 	public ResponseEntity<?> downloadEpisode(@PathVariable("idEpisode") int idEpisode
 			, HttpServletRequest request) throws Exception {
-		LOGGER.initLogger("/download/{idEpisode}");		
+		/*LOGGER.initLogger("/download/{idEpisode}");		
 		String nameAudio = episodeService.getPathAudio(idEpisode);
 		LOGGER.setLog("Init getting audioFile of episode: "+ idEpisode, TYPE.INFO);
 		
@@ -184,5 +204,7 @@ public class EpisodeController {
 		InputStreamResource isr = new InputStreamResource(new FileInputStream(file));
 		LOGGER.setLog("Finish Transformed file to response", TYPE.INFO);
 		return new ResponseEntity<InputStreamResource>(isr, respHeaders, HttpStatus.OK);
+		*/
+		return ResponseEntity.ok("OK");
 	}
 }

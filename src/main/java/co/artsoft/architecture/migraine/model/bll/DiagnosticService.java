@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.artsoft.architecture.migraine.model.bll.LoggerService.TYPE;
+/*
 import co.artsoft.architecture.migraine.model.dao.DiagnosticRepository;
 import co.artsoft.architecture.migraine.model.dao.EpisodeRepository;
 import co.artsoft.architecture.migraine.model.dao.FoodRepository;
@@ -21,55 +22,55 @@ import co.artsoft.architecture.migraine.model.entity.Food;
 import co.artsoft.architecture.migraine.model.entity.Medicine;
 import co.artsoft.architecture.migraine.model.entity.PhysicalActivity;
 import co.artsoft.architecture.migraine.model.entity.User;
-
+*/
 @Service
 public class DiagnosticService {
 	
-	@Autowired
-	private LoggerService LOGGER;
+	//@Autowired
+	//private LoggerService LOGGER;
 	
 	/**
 	 * Repository of diagnostic.
 	 */
-	@Autowired
-	private DiagnosticRepository diagnosticRepository;
+	/*@Autowired
+	private DiagnosticRepository diagnosticRepository;*/
 	
 	/**
 	 * Repository of food.
 	 */
-	@Autowired
-	private FoodRepository foodRepository;
+	/*@Autowired
+	private FoodRepository foodRepository;*/
 	
 	/**
 	 * Repository of medicine.
 	 */
-	@Autowired
-	private MedicineRepository medicineRepository;
+	/*@Autowired
+	private MedicineRepository medicineRepository;*/
 	
 	/**
 	 * Repository of physical activity.
 	 */
-	@Autowired
-	private PhysicalActivityRepository physicalActivityRepository;
+	/*@Autowired
+	private PhysicalActivityRepository physicalActivityRepository;*/
 	
 	/**
 	 * Repository of users.
 	 */
-	@Autowired
-	private UserRepository userRepository;
+	/*@Autowired
+	private UserRepository userRepository;*/
 	
 	/**
 	 * Repository of episode.
 	 */
-	@Autowired
-	private EpisodeRepository episodeRepository;
+	/*@Autowired
+	private EpisodeRepository episodeRepository;*/
 	
 	/**
 	 * Save diagnostic.
 	 * @param diagnostic: Entity Diagnostic to be saved.
 	 * @return the saved diagnostic entity.
 	 */
-	public Diagnostic saveRepository(Diagnostic diagnostic) {	
+	/*public Diagnostic saveRepository(Diagnostic diagnostic) {	
 		LOGGER.setLog("	 Initialized storage diagnostic in DB", TYPE.INFO);
 		 diagnostic.setDate(new java.sql.Timestamp(System.currentTimeMillis()));
 		 
@@ -84,13 +85,13 @@ public class DiagnosticService {
 		 setPhysicalActivities(diagnostic);
 		 LOGGER.setLog("	Setting Physical activities", TYPE.INFO);
 		 return diagnosticRepository.save(diagnostic);		 
-	}
+	}*/
 	
 	/**
 	 * Set Foods to the diagnostic.
 	 * @param diagnostic: The diagnostic to add foods.
 	 */
-	private void setFoods(Diagnostic diagnostic) {
+	/*private void setFoods(Diagnostic diagnostic) {
 		Set<Food> foods = new HashSet<Food>();
 		 if (diagnostic.getFoods() != null && diagnostic.getFoods().size() > 0) {
 			for(Food f : diagnostic.getFoods()) {
@@ -99,13 +100,13 @@ public class DiagnosticService {
 			}	
 			diagnostic.setFoods(foods);
 		 }
-	}
+	}*/
 	
 	/**
 	 * Set Medicines to the diagnostic.
 	 * @param diagnostic: The diagnostic to add medicines.
 	 */
-	private void setMedicine(Diagnostic diagnostic) {
+	/*private void setMedicine(Diagnostic diagnostic) {
 		Set<Medicine> medicines = new HashSet<Medicine>();
 		 if (diagnostic.getMedicines() != null && diagnostic.getMedicines().size() > 0) {
 			for(Medicine f : diagnostic.getMedicines()) {
@@ -114,13 +115,13 @@ public class DiagnosticService {
 			}	
 			diagnostic.setMedicines(medicines);
 		 }
-	}
+	}*/
 	
 	/**
 	 * Set Physical activity to the diagnostic.
 	 * @param diagnostic: The diagnostic to add physical activities.
 	 */
-	private void setPhysicalActivities(Diagnostic diagnostic) {
+	/*private void setPhysicalActivities(Diagnostic diagnostic) {
 		Set<PhysicalActivity> physicalActivities = new HashSet<PhysicalActivity>();
 		 if (diagnostic.getPhysicalActivity() != null && diagnostic.getPhysicalActivity().size() > 0) {
 			for(PhysicalActivity f : diagnostic.getPhysicalActivity()) {
@@ -129,32 +130,32 @@ public class DiagnosticService {
 			}	
 			diagnostic.setPhysicalActivity(physicalActivities);
 		 }
-	}
+	}*/
 	
 	/**
 	 * Set the Doctor to the diagnostic.
 	 * @param diagnostic: The diagnostic to add the doctor.
 	 */
-	private void setDoctor(Diagnostic diagnostic) {
+	/*private void setDoctor(Diagnostic diagnostic) {
 		User user = userRepository.findOne(diagnostic.getUser().getDocumentNumber());
 		diagnostic.setUser(user);
-	}
+	}*/
 	
 	/**
 	 * Set the episode to the diagnostic.
 	 * @param diagnostic: The diagnostic to add the episode.
 	 */
-	private void setEpisode(Diagnostic diagnostic) {
+	/*private void setEpisode(Diagnostic diagnostic) {
 		Episode episode = episodeRepository.findOne(diagnostic.getEpisode().getId());
 		diagnostic.setEpisode(episode);
-	}
+	}*/
 	
 	/**
 	 * Get the latest diagnostic of patient.
 	 * @param documentPatient: the document number of the patient.
 	 * @return the latest diagnostic, otherwise null.
 	 */
-	public Diagnostic getLatestDiagnostic(String documentPatient) {
+	/*public Diagnostic getLatestDiagnostic(String documentPatient) {
 		Diagnostic latestDiagnostic = null;
 		User user = userRepository.findOne(documentPatient);
 		List<Episode> episodes = episodeRepository.findByUserAndDiagnosticsNotNullOrderByDateDesc(user);
@@ -164,5 +165,5 @@ public class DiagnosticService {
 			latestDiagnostic = diagnosticList.get(diagnosticList.size() - 1);
 		}		
 		return latestDiagnostic;
-	}
+	}*/
 }

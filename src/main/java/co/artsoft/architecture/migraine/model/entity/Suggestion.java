@@ -1,20 +1,20 @@
 package co.artsoft.architecture.migraine.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
+//import javax.persistence.Column;
+//import javax.persistence.Entity;
+//import javax.persistence.GeneratedValue;
+//import javax.persistence.GenerationType;
+//import javax.persistence.Id;
+//import javax.persistence.Table;
+/*
 @Entity
-@Table(name = "Sugerencia")
+@Table(name = "Sugerencia")*/
 public class Suggestion {
-	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+//	@Id
+//    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 		
-	@Column(name = "nombre")
+//	@Column(name = "nombre")
 	private String name;
 	
 	public Integer getId() {

@@ -4,68 +4,68 @@ import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+//import javax.persistence.CascadeType;
+//import javax.persistence.Column;
+//import javax.persistence.Entity;
+//import javax.persistence.GeneratedValue;
+//import javax.persistence.GenerationType;
+//import javax.persistence.Id;
+//import javax.persistence.JoinColumn;
+//import javax.persistence.JoinTable;
+//import javax.persistence.ManyToMany;
+//import javax.persistence.ManyToOne;
+//import javax.persistence.OneToMany;
+//import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
-
+/*
 @Entity
-@Table(name = "Episodio")
+@Table(name = "Episodio")*/
 public class Episode  {
-	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+//	@Id
+//    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;	
 	@JsonFormat(pattern = "YYYY-MM-dd HH:mm:ss")
-	@Column(name = "Fecha")
+//	@Column(name = "Fecha")
 	private Timestamp date;	
-	@Column(name = "nivelDolor")
+//	@Column(name = "nivelDolor")
 	private int painLevel;
-	@Column(name = "urlAudio")
+//	@Column(name = "urlAudio")
 	private String audioPath;
-	@Column(name = "patronSuenio")
+//	@Column(name = "patronSuenio")
     private String sleepPattern;
     
-    @ManyToMany(cascade = CascadeType.ALL)    
-	@JoinTable(name = "AlimentoPorEpisodio",
-		joinColumns = @JoinColumn(name = "idEpisodio", referencedColumnName = "id"),
-		inverseJoinColumns = @JoinColumn(name = "idAlimento", referencedColumnName = "id"))
+//    @ManyToMany(cascade = CascadeType.ALL)    
+//	@JoinTable(name = "AlimentoPorEpisodio",
+//		joinColumns = @JoinColumn(name = "idEpisodio", referencedColumnName = "id"),
+//		inverseJoinColumns = @JoinColumn(name = "idAlimento", referencedColumnName = "id"))
 	private Set<Food> foods = new HashSet<Food>();
     
-    @ManyToMany(cascade = CascadeType.ALL)   	
-   	@JoinTable(name = "LocalizacionPorEpisodio",
-   		joinColumns = @JoinColumn(name = "idEpisodio", referencedColumnName = "id"),
-   		inverseJoinColumns = @JoinColumn(name = "idLocalizacion", referencedColumnName = "id"))
+//    @ManyToMany(cascade = CascadeType.ALL)   	
+//   	@JoinTable(name = "LocalizacionPorEpisodio",
+//   		joinColumns = @JoinColumn(name = "idEpisodio", referencedColumnName = "id"),
+//   		inverseJoinColumns = @JoinColumn(name = "idLocalizacion", referencedColumnName = "id"))
    	private Set<Location> locations = new HashSet<Location>();
 
-    @ManyToMany(cascade = CascadeType.ALL)   	
-   	@JoinTable(name = "MedicamentoPorEpisodio",
-   		joinColumns = @JoinColumn(name = "idEpisodio", referencedColumnName = "id"),
-   		inverseJoinColumns = @JoinColumn(name = "idMedicamento", referencedColumnName = "id"))
+//    @ManyToMany(cascade = CascadeType.ALL)   	
+//   	@JoinTable(name = "MedicamentoPorEpisodio",
+//   		joinColumns = @JoinColumn(name = "idEpisodio", referencedColumnName = "id"),
+//   		inverseJoinColumns = @JoinColumn(name = "idMedicamento", referencedColumnName = "id"))
    	private Set<Medicine> medicines = new HashSet<Medicine>();
     
-    @ManyToMany(cascade = CascadeType.ALL)   	
-   	@JoinTable(name = "ActividadFisicaPorEpisodio",
-   		joinColumns = @JoinColumn(name = "idEpisodio", referencedColumnName = "id"),
-   		inverseJoinColumns = @JoinColumn(name = "idActividadFisica", referencedColumnName = "id"))
+//    @ManyToMany(cascade = CascadeType.ALL)   	
+//   	@JoinTable(name = "ActividadFisicaPorEpisodio",
+//   		joinColumns = @JoinColumn(name = "idEpisodio", referencedColumnName = "id"),
+//   		inverseJoinColumns = @JoinColumn(name = "idActividadFisica", referencedColumnName = "id"))
    	private Set<PhysicalActivity> physicalActivity = new HashSet<PhysicalActivity>();
     
-    @ManyToOne
-	@JoinColumn (name="idUsuario")
+//    @ManyToOne
+//	@JoinColumn (name="idUsuario")
 	@JsonBackReference
 	private User user;
     
-    @OneToMany(mappedBy = "episode")
+//    @OneToMany(mappedBy = "episode")
 	private Set<Diagnostic> diagnostics = new HashSet<Diagnostic>();
     
     public Integer getId() {

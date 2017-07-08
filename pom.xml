@@ -72,7 +72,7 @@
     <version>1.3.1</version>
 </dependency>
 		<!-- JPA Data (We are going to use Repositories, Entities, Hibernate, etc...) -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
@@ -80,18 +80,18 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
-		</dependency>	
+		</dependency>	 -->
 		<!-- Use MySQL Connector-J -->
-		<dependency>
+		<!--<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-		</dependency>
+		</dependency>-->
 		<!--  AWS dependency -->
-		 <dependency>
+		<!--  <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk</artifactId>
             <version>1.11.158</version>
-        </dependency>	
+        </dependency>	-->
         		
 	</dependencies>	    
 	<packaging>war</packaging>

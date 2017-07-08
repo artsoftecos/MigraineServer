@@ -26,11 +26,11 @@ public class AppInit  extends SpringBootServletInitializer implements CommandLin
 	/**
 	 * Datasource that the application is using.
 	 */
-	@Autowired
-    DataSource dataSource;
-	
-	@Value("${application.FileStorage}")
-	private String fileStorage;
+//	@Autowired
+//    DataSource dataSource;
+//	
+//	@Value("${application.FileStorage}")
+//	private String fileStorage;
 	
 	/**
 	 * Home rest service
@@ -48,9 +48,11 @@ public class AppInit  extends SpringBootServletInitializer implements CommandLin
      */
     public static void main(String[] args) throws Exception {
     	//System.setProperty("server.tomcat.accept-count","100");
-    	System.setProperty("server.tomcat.max-threads","300");
-		System.setProperty("server.connection-timeout","60000");
-		//TimeZone.setDefault(TimeZone.getTimeZone("GMT"));
+    	
+    	//System.setProperty("server.tomcat.max-threads","300");
+		//System.setProperty("server.connection-timeout","60000");
+		
+    	//TimeZone.setDefault(TimeZone.getTimeZone("GMT"));
         SpringApplication.run(AppInit.class, args);
     }
     
@@ -59,8 +61,8 @@ public class AppInit  extends SpringBootServletInitializer implements CommandLin
      */
     @Override
     public void run(String... args) throws Exception {
-        System.out.println("DATASOURCE = " + dataSource);
-        System.out.println("fileStorage = " + fileStorage);
+//        System.out.println("DATASOURCE = " + dataSource);
+//        System.out.println("fileStorage = " + fileStorage);
     }
     
     @Override

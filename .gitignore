@@ -38,3 +38,4 @@ buildNumber.properties
 !/.mvn/wrapper/maven-wrapper.jar
 audio/*.mp3
 .aws/credentials
+src/main/resources/application-dev.properties

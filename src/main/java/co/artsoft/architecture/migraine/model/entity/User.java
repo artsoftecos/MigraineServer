@@ -16,7 +16,7 @@ import javax.persistence.Table;
 public class User {
 
 	@Id
-	@Column(name = "document_id", unique = true, nullable = false, length = 45)
+	@Column(name = "document_id", unique = true, nullable = false, length = 60)
 	private String documentId;
 	
 	@Column(name = "password", nullable = false, length = 60)

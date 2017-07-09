@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.www.DigestAuthenticationEntryPoint;
+import org.springframework.security.web.authentication.www.DigestAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -22,19 +24,44 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
-		auth.userDetailsService(userService).passwordEncoder(new BCryptPasswordEncoder());
+		//Quitar comentarios de esta linea cuando se vaya a usar digest, comentar cuando se vaya a usar basic
+		auth.userDetailsService(userService).toString();
+		//Quitar comentarios de esta linea cuando se vaya a usar basic, comentar cuando se vaya a usar digest
+		//auth.userDetailsService(userService).passwordEncoder(new BCryptPasswordEncoder());		
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().
+		//Quitar comentarios de este bloque (comienza en http.authorizeRequests(). y termina en .disable();) cuando se vaya a usar basic y colocar comentarios 
+		//cuando se vaya a usar digest
+		/*http.authorizeRequests().
 			anyRequest()
 			.fullyAuthenticated()
 		.and()
 			.httpBasic()
 		.and()
 			.csrf()
-			.disable();
+			.disable();*/
+		
+		//Quitar comentarios de este bloque (comienza en DigestAuthenticationEntryPoint y termina en .anyRequest().fullyAuthenticated()) cuando se vaya a usar digest
+		//y colocar comentarios cuando se vaya a usar basic
+		DigestAuthenticationEntryPoint authenticationEntryPoint = new DigestAuthenticationEntryPoint();
+        authenticationEntryPoint.setKey("sewatech");
+        authenticationEntryPoint.setRealmName("example");
+        authenticationEntryPoint.setNonceValiditySeconds(600);
+        
+        DigestAuthenticationFilter filter = new DigestAuthenticationFilter();
+        filter.setAuthenticationEntryPoint(authenticationEntryPoint);
+        filter.setUserDetailsService(userDetailsService());
+
+        http.addFilter(filter)
+                .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
+                .and()
+                .authorizeRequests()
+                .anyRequest().fullyAuthenticated()
+                .and().csrf().disable();
+		
+		
 			
 	}
 

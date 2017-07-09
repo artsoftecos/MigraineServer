@@ -95,10 +95,10 @@ WHERE NOT EXISTS (
 ---------------- Usuarios ----------------------------------
 ------- Usuario -----------------
 insert into ebdb.usuario(document_id, enabled, password, token)
-values('1014207335', true, '$2a$10$6/jWZYBQSXe5yg8SlDh5dOV87mMC5Tbg6vPHwrZDkraG4VuTpF4IW', '12e');
+values('1014207335', true, 'password', '12e');
 
 insert into ebdb.usuario(document_id, enabled, password, token)
-values('1014207337', true, '$2a$10$6/jWZYBQSXe5yg8SlDh5dOV87mMC5Tbg6vPHwrZDkraG4VuTpF4IW', '12e');
+values('1014207337', true, 'password', '12e');
 
 insert into ebdb.tipo_usuario(type, document_id)
 values('ROLE_DOCTOR', '1014207335');
@@ -107,7 +107,7 @@ insert into ebdb.tipo_usuario(type, document_id)
 values('ROLE_DOCTOR', '1014207337');
 
 insert into ebdb.usuario(document_id, enabled, password, token)
-values('1014207336', true, '$2a$10$6/jWZYBQSXe5yg8SlDh5dOV87mMC5Tbg6vPHwrZDkraG4VuTpF4IW', '12e');
+values('1014207336', true, 'password', '12e');
 
 insert into ebdb.tipo_usuario(type, document_id)
 values('ROLE_PATIENT', '1014207336');

@@ -16,7 +16,7 @@ public class AvailabilityController {
 	 * Home rest service
 	 * @return
 	 */
-    @GetMapping("/")
+    @GetMapping("/ping")
     String home() {
         return "Up";
     }

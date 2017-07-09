@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "Arq",
-		"_postman_id": "fb0e335d-4fc2-1dfc-2044-a2cecf8131c6",
+		"_postman_id": "c3fd5796-1beb-2833-a277-95b0918c5f05",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -40,7 +40,10 @@
 				"url": "http://localhost:8080/episode/patient/1014207336",
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"description": "Consulta de episodios de paciente"
 			},
 			"response": []
@@ -51,7 +54,10 @@
 				"url": "http://localhost:8080/episode/2",
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"description": "Consulta de episodio de migraña"
 			},
 			"response": []
@@ -62,7 +68,10 @@
 				"url": "http://localhost:8080/episode/download/2",
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"description": "Descarga del archivo de audio"
 			},
 			"response": []
@@ -89,6 +98,17 @@
 					"raw": "{\t\r\n    \"episode\": {\r\n\t\t\"id\" : \"2\"\r\n\t},\r\n\t\"user\": {\r\n\t\t\"documentNumber\" : \"1014207335\"\r\n\t},\r\n    \"foods\": [\r\n        {\r\n            \"id\": 5\r\n        }\r\n    ],\r\n    \"medicines\": [\r\n\t\t{\r\n\t\t\t\"id\": 2\r\n\t\t}\r\n\t],\r\n    \"physicalActivity\": [\r\n\t\t{\r\n\t\t\t\"id\": 2\r\n\t\t}\r\n\t]\r\n}\r\n"
 				},
 				"description": "Registro de diagnostico"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/ping",
+			"request": {
+				"url": "http://localhost:8080/ping",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
 			},
 			"response": []
 		}

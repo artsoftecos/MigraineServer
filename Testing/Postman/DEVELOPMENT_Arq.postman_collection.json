@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "Arq",
-		"_postman_id": "cf871de6-883f-1949-4a1b-dcf7460c1fe7",
+		"_postman_id": "06ca9db7-6cef-f4b4-fd58-39ff801afd71",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -12,7 +12,13 @@
 			"request": {
 				"url": "http://localhost:8080/episode/register",
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic MTAxNDIwNzMzNTpwYXNzd29yZA==",
+						"description": ""
+					}
+				],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
@@ -39,7 +45,13 @@
 			"request": {
 				"url": "http://localhost:8080/episode/patient/1014207336",
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic MTAxNDIwNzMzNTpwYXNzd29yZA==",
+						"description": ""
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": ""
@@ -68,7 +80,10 @@
 				"url": "http://localhost:8080/episode/download/2",
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"description": "Descarga del archivo de audio"
 			},
 			"response": []
@@ -95,6 +110,17 @@
 					"raw": "{\t\r\n    \"episode\": {\r\n\t\t\"id\" : \"2\"\r\n\t},\r\n\t\"doctor\": {\r\n\t\t\"code\" : \"Cod_1\"\r\n\t},\r\n    \"foods\": [\r\n        {\r\n            \"id\": 5\r\n        }\r\n    ],\r\n    \"medicines\": [\r\n\t\t{\r\n\t\t\t\"id\": 2\r\n\t\t}\r\n\t],\r\n    \"physicalActivity\": [\r\n\t\t{\r\n\t\t\t\"id\": 2\r\n\t\t}\r\n\t]\r\n}\r\n"
 				},
 				"description": "Registro de diagnostico"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/ping",
+			"request": {
+				"url": "http://localhost:8080/ping",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
 			},
 			"response": []
 		}

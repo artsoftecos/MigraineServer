@@ -27,8 +27,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().
-			anyRequest()
+		http.authorizeRequests().antMatchers("/ping").permitAll().
+			anyRequest()			
 			.fullyAuthenticated()
 		.and()
 			.httpBasic()

@@ -7,12 +7,15 @@ package co.artsoft.architecture.migraine;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.web.bind.annotation.*;
+
+import co.artsoft.architecture.migraine.model.bll.encryption.GenerateKeys;
 
 /**
  * Main of the application
@@ -22,6 +25,8 @@ import org.springframework.web.bind.annotation.*;
 @SpringBootApplication
 @RestController
 public class AppInit  extends SpringBootServletInitializer implements CommandLineRunner {
+
+	//Keys Generator
 
 	/**
 	 * Datasource that the application is using.
@@ -47,9 +52,14 @@ public class AppInit  extends SpringBootServletInitializer implements CommandLin
      * @throws Exception: Throw possible exception.
      */
     public static void main(String[] args) throws Exception {
+    	GenerateKeys generateKeys = new GenerateKeys();
+    	generateKeys.generateKeys();
+    	generateKeys.generateKeysFiles();
+    	
     	//System.setProperty("server.tomcat.accept-count","100");
     	System.setProperty("server.tomcat.max-threads","300");
 		System.setProperty("server.connection-timeout","60000");
+		
 		//TimeZone.setDefault(TimeZone.getTimeZone("GMT"));
         SpringApplication.run(AppInit.class, args);
     }

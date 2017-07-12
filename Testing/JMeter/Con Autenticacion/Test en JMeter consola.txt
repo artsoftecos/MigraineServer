@@ -1,0 +1,1 @@
+E:...\apache-jmeter-3.2\bin>jmeter -n -t E:\Proyectos\cupidos\MigraineServer\migraineServer\Testing\JMeter\Con Autenticacion\PRODUCTION_34_230_130_185.jmx -l result.txt -e -o E:\Proyectos\m
